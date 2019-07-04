@@ -5,7 +5,7 @@ using Invector;
 
 public class vThirdPersonCamera : MonoBehaviour
 {
-    private static vThirdPersonCamera _instance;
+    /* private static vThirdPersonCamera _instance;
     public static vThirdPersonCamera instance
     {
         get
@@ -20,7 +20,7 @@ public class vThirdPersonCamera : MonoBehaviour
 
             return _instance;
         }
-    }
+    }*/
 
     #region inspector properties    
 

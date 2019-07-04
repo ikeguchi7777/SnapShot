@@ -10,15 +10,15 @@ namespace Invector.CharacterController
         #region variables
 
         [Header("Default Inputs")]
-        public string horizontalInput = "Horizontal";
-        public string verticallInput = "Vertical";
+        public string horizontalInput = "LHorizontal";
+        public string verticallInput = "LVertical";
         public KeyCode jumpInput = KeyCode.Space;
         public KeyCode strafeInput = KeyCode.Tab;
         public KeyCode sprintInput = KeyCode.LeftShift;
 
         [Header("Camera Settings")]
-        public string rotateCameraXInput ="Mouse X";
-        public string rotateCameraYInput = "Mouse Y";
+        public string rotateCameraXInput ="RHorizontal";
+        public string rotateCameraYInput = "RVertical";
 
         protected vThirdPersonCamera tpCamera;                // acess camera info        
         [HideInInspector]
