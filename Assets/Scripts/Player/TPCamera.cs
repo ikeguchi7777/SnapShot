@@ -5,18 +5,20 @@ using Invector.CharacterController;
 
 public class TPCamera : vThirdPersonCamera
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private int id;
     public void SetId(int id){
+        this.id = id;
+        float x=0.0f,y=0.0f,w=0.5f,h=0.5f;
+        if(id<2&&(GameInstance.Instance.PlayerNum>2||id==0))
+            y=0.5f;
+        if(id%2==1&&GameInstance.Instance.PlayerNum>2)
+            x=0.5f;
+        if(GameInstance.Instance.PlayerNum==2)
+            w=1.0f;
+        var viewport = new Rect(x,y,w,h);
+        if(!_camera)
+            _camera = GetComponent<Camera>();
+        _camera.rect = viewport;
         
     }
 }

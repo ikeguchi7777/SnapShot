@@ -60,7 +60,7 @@ public class vThirdPersonCamera : MonoBehaviour
     private Vector3 lookPoint;
     private Vector3 current_cPos;
     private Vector3 desired_cPos;
-    private Camera _camera;
+    protected Camera _camera;
     private float distance = 5f;
     private float mouseY = 0f;
     private float mouseX = 0f;
