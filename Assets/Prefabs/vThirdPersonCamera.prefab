@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6456788619520467324}
   - component: {fileID: 6456788619520950604}
   - component: {fileID: 6456788619531554530}
-  - component: {fileID: 6456788619518592732}
   - component: {fileID: 7191792954688477316}
   m_Layer: 0
   m_Name: vThirdPersonCamera
@@ -79,14 +78,6 @@ Camera:
   m_StereoSeparation: 0.022
 --- !u!124 &6456788619531554530
 Behaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6456788619520201720}
-  m_Enabled: 1
---- !u!81 &6456788619518592732
-AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}

@@ -19,6 +19,6 @@ public class GameInstance
     }
 
     public void init(){
-        PlayerNum = 0;
+        PlayerNum = 4;
     }
 }

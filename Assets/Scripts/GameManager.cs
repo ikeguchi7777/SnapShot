@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
             tpCameras[i] = Instantiate(tpCamera);
             tpCameras[i].SetId(i);
             Players[i] = Instantiate(players[i],position[i],Quaternion.identity);
+            Players[i].PlayerID = i;
         }
     }
 
