@@ -48,16 +48,20 @@ public class PlayerInput : MonoBehaviour
 
     protected virtual void InputHandle()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         ExitGameInput();
-        #endif
+#endif
         CameraInput();
 
         if (!cc.lockMovement)
         {
+            AimCameraInput();
             MoveCharacter();
-            SprintInput();
-            JumpInput();
+            if (!cc.isStrafing)
+            {
+                SprintInput();
+                JumpInput();
+            }
         }
     }
 
@@ -69,24 +73,38 @@ public class PlayerInput : MonoBehaviour
 
     protected virtual void SprintInput()
     {
-        if(Input.GetButtonDown(keyname.Sprint))
+        if (Input.GetButtonDown(keyname.Sprint))
             cc.Sprint(true);
-        else if(Input.GetButtonUp(keyname.Sprint))
+        else if (Input.GetButtonUp(keyname.Sprint))
             cc.Sprint(false);
     }
 
     protected virtual void JumpInput()
     {
-        if(Input.GetButtonDown(keyname.Jump))
+        if (Input.GetButtonDown(keyname.Jump))
             cc.Jump();
+    }
+
+    protected virtual void AimCameraInput()
+    {
+        if (Input.GetButtonDown(keyname.AimCamera))
+        {
+            cc.AimCamera(true);
+            tpCamera.SetFirstPerson(true);
+        }
+        else if (Input.GetButtonUp(keyname.AimCamera))
+        {
+            cc.AimCamera(false);
+            tpCamera.SetFirstPerson(false);
+        }
     }
 #if UNITY_EDITOR
     protected virtual void ExitGameInput()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(!Cursor.visible)
-                Cursor.visible=true;
+            if (!Cursor.visible)
+                Cursor.visible = true;
             else
                 Application.Quit();
         }
@@ -98,7 +116,7 @@ public class PlayerInput : MonoBehaviour
         var X = Input.GetAxis(keyname.RHorizontal);
         var Y = Input.GetAxis(keyname.RVertical);
 
-        tpCamera.RotateCamera(X,Y);
+        tpCamera.RotateCamera(X, Y);
 
         cc.UpdateTargetDirection(tpCamera.transform);
 

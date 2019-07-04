@@ -55,7 +55,7 @@ public class vThirdPersonCamera : MonoBehaviour
     [HideInInspector]
     public Vector2 movementSpeed;
 
-    private Transform targetLookAt;
+    protected Transform targetLookAt;
     private Vector3 currentTargetPos;
     private Vector3 lookPoint;
     private Vector3 current_cPos;
@@ -102,10 +102,9 @@ public class vThirdPersonCamera : MonoBehaviour
         currentHeight = height;
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (target == null || targetLookAt == null) return;
-
         CameraMovement();
     }
 
@@ -166,7 +165,7 @@ public class vThirdPersonCamera : MonoBehaviour
     /// <summary>
     /// Camera behaviour
     /// </summary>    
-    void CameraMovement()
+    protected void CameraMovement()
     {
         if (currentTarget == null)
             return;

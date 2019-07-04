@@ -5,9 +5,14 @@ using Invector.CharacterController;
 
 public class SnapShotPlayerController : vThirdPersonController
 {
-    public int PlayerID{get;set;}
-    #region SnapShotParam
-    [Header("--- SnapShot Setup ---")]
-    public Camera myCamera;
+    #region Character Variables
+    [Header("--- SnapShotParam ---")]
+    public Transform Sight;
     #endregion
+    public int PlayerID { get; set; }
+
+    public void AimCamera(bool value)
+    {
+        isStrafing = value;
+    }
 }
