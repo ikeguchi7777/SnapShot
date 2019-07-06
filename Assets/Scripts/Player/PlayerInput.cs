@@ -116,11 +116,18 @@ public class PlayerInput : MonoBehaviour
         var X = Input.GetAxis(keyname.RHorizontal);
         var Y = Input.GetAxis(keyname.RVertical);
 
-        tpCamera.RotateCamera(X, Y);
+        if (cc.isStrafing)
+        {
+            cc.RotateSpine(X, Y);
+        }
+        else
+        {
+            tpCamera.RotateCamera(X, Y);
 
-        cc.UpdateTargetDirection(tpCamera.transform);
+            cc.UpdateTargetDirection(tpCamera.transform);
 
-        RotateWithCamera(tpCamera.transform);
+            RotateWithCamera(tpCamera.transform);
+        }
     }
 
     protected virtual void UpdateCameraStates()
