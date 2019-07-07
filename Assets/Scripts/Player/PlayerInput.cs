@@ -139,6 +139,19 @@ public class PlayerInput : MonoBehaviour
     {
 
     }
+
+    void OnEnable()
+    {
+        if (!Input.GetButton(keyname.AimCamera))
+        {
+            cc.AimCamera(false);
+            tpCamera.SetFirstPerson(false);
+        }
+        if (!Input.GetButton(keyname.Sprint))
+        {
+            cc.Sprint(false);
+        }
+    }
 }
 
 public class KeyNameList

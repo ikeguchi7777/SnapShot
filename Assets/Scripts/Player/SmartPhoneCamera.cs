@@ -7,7 +7,7 @@ public class SmartPhoneCamera : MonoBehaviour
     Camera _camera;
     RenderTexture _panelTexture;
     [SerializeField]
-    Material panelMaterial;
+    Material panelMaterial = null;
     [SerializeField]
     int width = 375, height = 812;
     

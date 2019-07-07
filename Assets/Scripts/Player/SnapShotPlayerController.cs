@@ -8,13 +8,13 @@ public class SnapShotPlayerController : vThirdPersonController
     #region Character Variables
     [Header("--- SnapShotParam ---")]
     [Tooltip("1人称視点のカメラの位置")]
-    public Transform Sight;
+    public Transform Sight=null;
     [SerializeField,Tooltip("腰のボーン")]
-    Transform Spine;
+    Transform Spine=null;
     [SerializeField, Tooltip("腰を回すスピード")]
-    float SpineSpeed;
+    float SpineSpeed=100.0f;
     [SerializeField, Tooltip("腰の可動域")]
-    Vector2 SpineRange;
+    Vector2 SpineRange = new Vector2(30.0f, 40.0f);
     #endregion
     Vector3 nextEulerAngle;
     Vector3 eulerAngle;
