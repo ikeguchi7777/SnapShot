@@ -3,8 +3,8 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 17
-  productGUID: ef96bf405ebcd3640afa0f537067f543
+  serializedVersion: 16
+  productGUID: 4ccd01a7e3af8f4428e79d2907d27bbf
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -65,7 +65,6 @@ PlayerSettings:
   disableDepthAndStencilBuffers: 0
   androidStartInFullscreen: 1
   androidRenderOutsideSafeArea: 1
-  androidUseSwappy: 0
   androidBlitType: 0
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
@@ -150,7 +149,6 @@ PlayerSettings:
     oculus:
       sharedDepthBuffer: 1
       dashSupport: 1
-      lowOverheadMode: 0
     enable360StereoCapture: 0
   isWsaHolographicRemotingEnabled: 0
   protectGraphicsMemory: 0
@@ -164,7 +162,7 @@ PlayerSettings:
   applicationIdentifier: {}
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 19
+  AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -251,7 +249,7 @@ PlayerSettings:
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
   clonedFromGUID: c0afd0d1d80e3634a9dac47e8a0426ea
-  templatePackageId: com.unity.template.3d@3.1.0
+  templatePackageId: com.unity.template.3d@2.3.3
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
@@ -270,8 +268,6 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  AndroidValidateAppBundleSize: 1
-  AndroidAppBundleSizeToValidate: 150
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons: []
   m_BuildTargetPlatformIcons: []
@@ -310,10 +306,10 @@ PlayerSettings:
     m_Devices:
     - Oculus
     - OpenVR
+  m_BuildTargetEnableVuforiaSettings: []
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
-  vuforiaEnabled: 0
   m_TemplateCustomTags: {}
   mobileMTRendering:
     Android: 1
@@ -531,7 +527,6 @@ PlayerSettings:
   monoEnv: 
   splashScreenBackgroundSourceLandscape: {fileID: 0}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
-  blurSplashScreenBackground: 1
   spritePackerPolicy: 
   webGLMemorySize: 16
   webGLExceptionSupport: 1
@@ -612,6 +607,7 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   XboxOneXTitleMemory: 8
+  xboxOneScriptCompiler: 1
   XboxOneOverrideIdentityName: 
   vrEditorSettings:
     daydream:
@@ -643,6 +639,6 @@ PlayerSettings:
   projectName: 
   organizationId: 
   cloudEnabled: 0
-  enableNativePlatformBackendsForNewInputSystem: 1
+  enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
-  legacyClampBlendShapeWeights: 1
+  legacyClampBlendShapeWeights: 0
