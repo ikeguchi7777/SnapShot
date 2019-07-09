@@ -142,6 +142,8 @@ public class PlayerInput : MonoBehaviour
 
     void OnEnable()
     {
+        if (keyname == null)
+            return;
         if (!Input.GetButton(keyname.AimCamera))
         {
             cc.AimCamera(false);
