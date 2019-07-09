@@ -11,8 +11,10 @@ public class SaveImage : MonoBehaviour
 
     private int photoNumber = 1;
 
-    [SerializeField] SoundController soundController;
-    
+    //[SerializeField] SoundController soundController;
+
+    public SaveImage() { }
+
     // Use this for initialization
     void Start()
     {
@@ -23,12 +25,13 @@ public class SaveImage : MonoBehaviour
     void Update()
     {
         //キーボードの「s」を押したら画像を保存
-        if (Input.GetKeyDown("s"))
+        /*if (Input.GetKeyDown(KeyCode.Z))
         {
             SaveCameraImage();
+            IsRendered.Renderedcheck();
             soundController.PlaySE(SoundController.Sound.camera);
             
-        }
+        }*/
     }
 
     public void SaveCameraImage()
