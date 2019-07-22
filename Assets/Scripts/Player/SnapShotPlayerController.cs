@@ -32,6 +32,7 @@ public class SnapShotPlayerController : vThirdPersonController
     public void AimCamera(bool value)
     {
         isStrafing = value;
+        Sprint(false);
     }
 
     public void RotateSpine(float x,float y)

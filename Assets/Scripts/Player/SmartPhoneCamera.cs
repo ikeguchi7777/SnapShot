@@ -9,9 +9,9 @@ public class SmartPhoneCamera : MonoBehaviour
     [SerializeField]
     Material panelMaterial = null;
     [SerializeField]
-    int width = 375, height = 812;
+    int width = 378, height = 672;
     
-    void Awake()
+    void Start()
     {
         _camera = GetComponentInChildren<Camera>();
         var textureDescriptor = new RenderTextureDescriptor(width, height);
@@ -19,6 +19,7 @@ public class SmartPhoneCamera : MonoBehaviour
         _camera.targetTexture = _panelTexture;
         panelMaterial.mainTexture = _panelTexture;
         panelMaterial.SetTexture("_EmissionMap", _panelTexture);
+        FindObjectOfType<GameManager>().PanelTexture[GetComponentInParent<SnapShotPlayerController>().PlayerID] = _panelTexture;
     }
 
     // Update is called once per frame

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public SnapShotPlayerController[] Players{get;private set;}
 
     PauseSystem pause;
+
+    public RenderTexture[] PanelTexture { get; set; }
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
             #endif
         }
         tpCameras = new TPCamera[GameInstance.Instance.PlayerNum];
+        PanelTexture = new RenderTexture[GameInstance.Instance.PlayerNum];
         Players = new SnapShotPlayerController[GameInstance.Instance.PlayerNum];
         for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
         {
