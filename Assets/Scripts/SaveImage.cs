@@ -6,7 +6,7 @@ using System.IO;
 
 public class SaveImage : MonoBehaviour
 {
-    public Camera eyeCamera;
+    [SerializeField] Camera eyeCamera;
     private Texture2D texture;
 
     private int photoNumber = 1;

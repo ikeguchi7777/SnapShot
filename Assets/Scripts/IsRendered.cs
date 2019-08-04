@@ -12,7 +12,7 @@ public class IsRendered : MonoBehaviour
     static bool _isRendered = false;
     //private static bool check = false;
 
-     int id;
+    [SerializeField] int id;
 
    public  IsRendered(int id)
     {
@@ -21,33 +21,34 @@ public class IsRendered : MonoBehaviour
 
     private void Update()
     {
-
-
-
         if (_isRendered)
         {
             _isRendered = false;
         }
 
 
+       
+
         /*if (check)
         {
             check = false;
         }*/
+        //Debug.Log(_isRendered);
     }
 
 
     public void Renderedcheck()
     {
         
+
         if (_isRendered)
         {
             //_isRendered = true;
-            Debug.Log(id + ":映ってる");
+            //Debug.Log("親:"+transform.parent.parent.gameObject.GetComponent<PlayerController>().GetId()+"target"+ id + ":映ってる");
         }
         else
         {
-            Debug.Log(id + ":映ってない");
+            //Debug.Log("親:" + transform.parent.parent.gameObject.GetComponent<PlayerController>().GetId() + "target" + id + ":映ってない");
         }
     }
 
@@ -59,6 +60,8 @@ public class IsRendered : MonoBehaviour
         {
             _isRendered = true;
         }
+    
+        //Debug.Log(_isRendered);
 
         /*Debug.Log(Camera.current.tag);
         if (Camera.current.tag == "EyeCamera")
@@ -85,4 +88,11 @@ public class IsRendered : MonoBehaviour
 
     }
 
+    /*public void OnBecameInvisible()
+    {
+        if (_isRendered)
+        {
+            _isRendered = false;
+        }
+    }*/
 }
