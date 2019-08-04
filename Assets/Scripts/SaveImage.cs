@@ -8,6 +8,8 @@ public class SaveImage : MonoBehaviour
 {
     [SerializeField] Camera eyeCamera;
     private Texture2D texture;
+    int X;
+    int Y;
 
     private int photoNumber = 1;
 
@@ -18,7 +20,16 @@ public class SaveImage : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        texture = new Texture2D(eyeCamera.targetTexture.width, eyeCamera.targetTexture.height,
+        switch (GetComponent<PlayerController>().GetId())
+        {
+            case 1: X = 0; Y = 0; break;
+            case 2: X = 1; Y = 0; break;
+            case 3: X = 0; Y = 1; break;
+            case 4: X = 1; Y = 1; break;
+
+        }
+
+        texture = new Texture2D(eyeCamera.targetTexture.width / 2, eyeCamera.targetTexture.height / 2,
                                 TextureFormat.RGB24, false);
     }
     // Update is called once per frame
@@ -42,7 +53,7 @@ public class SaveImage : MonoBehaviour
         RenderTexture.active = eyeCamera.targetTexture;
         eyeCamera.Render();
         // Create a new Texture2D and read the RenderTexture texture into it
-        texture.ReadPixels(new Rect(0, 0, eyeCamera.targetTexture.width, eyeCamera.targetTexture.height), 0, 0);
+        texture.ReadPixels(new Rect(eyeCamera.targetTexture.width / 2 * X, eyeCamera.targetTexture.height / 2 * Y, eyeCamera.targetTexture.width / 2, eyeCamera.targetTexture.height / 2), 0, 0);
         //転送処理の適用
         texture.Apply();
         // Restorie previously active render texture to avoid errors

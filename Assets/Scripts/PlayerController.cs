@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     Vector3 moveDirection;
+    ScoreCalculator scoreCalculator;
 
     [SerializeField] int id;
     [SerializeField] float gravity;
@@ -15,13 +16,16 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] CharacterController controller;
     [SerializeField] GameObject[] Target;// { get; set;}
+        public GameObject[] GetTarget() { return Target; }
     [SerializeField] GameObject[] Enemy;//{ get; set;}
-    //public GameObject[] GetEnemy() { return Enemy; }
-    //IsRendered[] targets = new IsRendered[5];
+        public GameObject[] GetEnemy() { return Enemy; }
     [SerializeField] SaveImage save;
     [SerializeField] SoundController soundController;
     [SerializeField] Camera camera;
+        public Camera GetCamera() { return camera; }
+
     public int GetId() { return id; }
+
 
     // public GameObject[] GetTarget { get { return target; } }
 
@@ -29,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         //controller = GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
-
+        scoreCalculator = GetComponent<ScoreCalculator>();
         /*for (int i = 0; i < target.Length; i++)
         {
          
@@ -110,22 +114,27 @@ public class PlayerController : MonoBehaviour
                 // Debug.Log(tar.transform.position);
                 Vector3 vec = (tar.transform.position - camera.transform.position).normalized;
                 Ray ray = new Ray(camera.transform.position,vec);
-
+                int layer_mask = LayerMask.GetMask(new string[] { "RayCheckable"});
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity,layer_mask))
                 {
                     Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
                     float theta = Mathf.Acos(Vector3.Dot(forward,vec) / (forward.magnitude * vec.magnitude)) * Mathf.Rad2Deg;
                     //Debug.Log(theta);
                     var hFOV = Mathf.Rad2Deg * 2 * Mathf.Atan(Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * camera.aspect);
                     //Debug.Log(hFOV);
-                    if (theta < hFOV/2)
+                    if (theta < hFOV/2 && hit.collider.tag== "target")
                     {
-                        Debug.DrawRay(camera.transform.position, vec * hit.distance, Color.red, 1);
+                        scoreCalculator.Calc(tar);
 
+                        Debug.DrawRay(camera.transform.position, vec * hit.distance, Color.red, 1);
+                       // Debug.Log((Vector2)camera.WorldToScreenPoint(tar.transform.position));
+                       // Debug.Log((Vector2)camera.WorldToViewportPoint(tar.transform.position));
                     }
                 }
             }
-        }        
+        }
+
+        //scoreCalculator.PrintScore();
     }
 }
