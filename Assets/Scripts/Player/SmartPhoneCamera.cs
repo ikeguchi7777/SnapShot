@@ -5,13 +5,13 @@ using UnityEngine;
 public class SmartPhoneCamera : MonoBehaviour
 {
     Camera _camera;
-    RenderTexture _panelTexture;
+    public RenderTexture _panelTexture { get; private set; }
     [SerializeField]
     Material panelMaterial = null;
     [SerializeField]
-    int width = 378, height = 672;
+    int width = 540, height = 960;
     
-    void Start()
+    void Awake()
     {
         _camera = GetComponentInChildren<Camera>();
         var textureDescriptor = new RenderTextureDescriptor(width, height);
@@ -19,12 +19,5 @@ public class SmartPhoneCamera : MonoBehaviour
         _camera.targetTexture = _panelTexture;
         panelMaterial.mainTexture = _panelTexture;
         panelMaterial.SetTexture("_EmissionMap", _panelTexture);
-        FindObjectOfType<GameManager>().PanelTexture[GetComponentInParent<SnapShotPlayerController>().PlayerID] = _panelTexture;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelMaterial: {fileID: 2100000, guid: 03c48f808d12ddd4cad75f46658aaf38, type: 2}
-  width: 375
-  height: 812
+  width: 540
+  height: 960
 --- !u!1 &4189541100112675448
 GameObject:
   m_ObjectHideFlags: 0
@@ -3508,13 +3508,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5814489586645995473}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.9, z: -1.2}
   m_LocalScale: {x: 1.5625052, y: 1.9031321, z: 100.0001}
   m_Children: []
   m_Father: {fileID: 5134097013771817806}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &6077625274899647738
 Camera:
   m_ObjectHideFlags: 0

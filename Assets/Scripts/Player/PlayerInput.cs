@@ -26,6 +26,7 @@ public class PlayerInput : MonoBehaviour
         keyname = new KeyNameList(cc.PlayerID);
         if (tpCamera) tpCamera.SetMainTarget(this.transform);
         else Debug.LogError("TPCameraの取得失敗");
+        tpCamera.SetRenderTexture(cc.GetComponentInChildren<SmartPhoneCamera>()._panelTexture);
     }
 
     protected virtual void LateUpdate()
