@@ -5,6 +5,12 @@ using UnityEngine;
 public class GameInstance
 {
     public int PlayerNum;                   //プレイヤーの人数1～4
+
+    public Sprite camtest;
+
+    public Queue<Sprite>[] photos;
+
+    public Queue<int>[] scores;
     GameInstance(){
         init();
     }
@@ -19,6 +25,13 @@ public class GameInstance
     }
 
     public void init(){
-        PlayerNum = 0;
+        PlayerNum = 4;
+        photos = new Queue<Sprite>[4];
+        scores = new Queue<int>[4];
+        for (int i = 0; i < photos.Length; i++)
+        {
+            photos[i] = new Queue<Sprite>();
+            scores[i] = new Queue<int>();
+        }
     }
 }

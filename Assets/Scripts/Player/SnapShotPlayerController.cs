@@ -19,6 +19,9 @@ public class SnapShotPlayerController : vThirdPersonController
     Vector3 nextEulerAngle;
     Vector3 eulerAngle;
     Vector3 eulerVelocity;
+    SmartPhoneCamera smartPhone;
+    PlayerBodyPoint point;
+
     float x, y;
 
     public int PlayerID { get; set; }
@@ -27,6 +30,8 @@ public class SnapShotPlayerController : vThirdPersonController
     {
         nextEulerAngle = Vector3.zero;
         eulerVelocity = Vector3.zero;
+        smartPhone = GetComponentInChildren<SmartPhoneCamera>();
+        point = GetComponent<PlayerBodyPoint>();
     }
 
     public void AimCamera(bool value)
@@ -58,4 +63,19 @@ public class SnapShotPlayerController : vThirdPersonController
         return new Vector3(Mathf.Clamp(euler.x, -SpineRange.y, SpineRange.y), Mathf.Clamp(euler.y, -SpineRange.x, SpineRange.x), euler.z);
     }
 
+    public RenderTexture PanelTexture()
+    {
+        return smartPhone._panelTexture;
+    }
+
+    public void TakePhoto()
+    {
+        StartCoroutine(smartPhone.TakePhoto(PlayerID));
+        SoundController.Instance.PlaySE(SoundController.Sound.camera);
+    }
+
+    public int CalculateScore(Camera _camera)
+    {
+        return point.CalculateScore(_camera);
+    }
 }

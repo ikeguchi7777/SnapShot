@@ -5,8 +5,6 @@ using UnityEngine;
 public class ScoreCalculator : MonoBehaviour
 {
 
-    PlayerController playerController;
-    Camera camera;
     GameObject[] Enemy;
     float distanceScore = 0;// { get; private set; }
     [SerializeField] float distanceWeight = 10;
@@ -16,34 +14,18 @@ public class ScoreCalculator : MonoBehaviour
     [SerializeField] float positionWeight = 1;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerController = GetComponent<PlayerController>();
-        camera = playerController.GetCamera();
-        Enemy = playerController.GetEnemy();
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public float CalcDistance(GameObject target)
     {
-        return Vector3.Distance(camera.transform.position, target.transform.position);
+        return Vector3.Distance(GetComponent<Camera>().transform.position, target.transform.position);
     }
 
     public float CalcAngle(GameObject target)
     {
-        return 180 - Vector3.Angle(camera.transform.forward, target.transform.forward);
+        return 180 - Vector3.Angle(GetComponent<Camera>().transform.forward, target.transform.forward);
     }
     public Vector2 CalcPosition(GameObject target)
     {
-        return (Vector2)camera.WorldToViewportPoint(target.transform.position);
+        return (Vector2)GetComponent<Camera>().WorldToViewportPoint(target.transform.position);
     }
 
     /*public void Calc()

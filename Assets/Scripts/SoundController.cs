@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
+    public static SoundController Instance { get; private set; }
     public enum Sound
     {
        camera,
@@ -12,6 +13,10 @@ public class SoundController : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip[] BGMClips, SEClips;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

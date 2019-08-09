@@ -26,7 +26,7 @@ public class PlayerInput : MonoBehaviour
         keyname = new KeyNameList(cc.PlayerID);
         if (tpCamera) tpCamera.SetMainTarget(this.transform);
         else Debug.LogError("TPCameraの取得失敗");
-        tpCamera.SetRenderTexture(cc.GetComponentInChildren<SmartPhoneCamera>()._panelTexture);
+        tpCamera.SetRenderTexture(cc.PanelTexture());
     }
 
     protected virtual void LateUpdate()
@@ -63,6 +63,10 @@ public class PlayerInput : MonoBehaviour
                 SprintInput();
                 JumpInput();
             }
+            else
+            {
+                SnapInput();
+            }
         }
     }
 
@@ -97,6 +101,14 @@ public class PlayerInput : MonoBehaviour
         {
             cc.AimCamera(false);
             tpCamera.SetFirstPerson(false);
+        }
+    }
+
+    protected virtual void SnapInput()
+    {
+        if (Input.GetButtonDown(keyname.Snap))
+        {
+            cc.TakePhoto();
         }
     }
 #if UNITY_EDITOR
