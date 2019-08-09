@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Invector.CharacterController;
+using UnityEngine.UI;
 
 public class TPCamera : vThirdPersonCamera
 {
     private int id;
 
     private Transform SightPosition;
+    private RawImage Screen;
 
     protected bool isFirstPerson = false;
     public void SetId(int id)
@@ -23,16 +25,27 @@ public class TPCamera : vThirdPersonCamera
         var viewport = new Rect(x, y, w, h);
         if (!_camera)
             _camera = GetComponent<Camera>();
-        _camera.rect = viewport;
+        foreach (var cam in GetComponentsInChildren<Camera>())
+        {
+            cam.rect = viewport;
+        }
 
     }
 
     public void SetFirstPerson(bool value)
     {
         isFirstPerson = value;
+        Screen.enabled = value;
         if(value){
             SightPosition = FindObjectOfType<GameManager>().Players[id].Sight;
         }
+    }
+
+    public void SetRenderTexture(RenderTexture texture)
+    {
+        Screen = GetComponentInChildren<RawImage>();
+        Screen.texture = texture;
+        Screen.enabled = false;
     }
 
     protected override void FixedUpdate()

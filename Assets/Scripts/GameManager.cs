@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public SnapShotPlayerController[] Players{get;private set;}
 
     PauseSystem pause;
+
     // Start is called before the first frame update
     void Awake()
     {
