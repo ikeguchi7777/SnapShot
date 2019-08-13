@@ -1313,12 +1313,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 263124991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3497ef6a3ec7f344597075c989884455, type: 3}
+  m_Script: {fileID: 11500000, guid: a753b2e6d4487984c890636c4cced6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceWeight: 20
-  angleWeight: 0.5555556
-  positionWeight: 1
 --- !u!1 &302324861
 GameObject:
   m_ObjectHideFlags: 0

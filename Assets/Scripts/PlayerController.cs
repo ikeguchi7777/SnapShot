@@ -6,25 +6,24 @@ public class PlayerController : MonoBehaviour
 {
 
     Vector3 moveDirection;
-    ScoreCalculator scoreCalculator;
+    //ScoreCalculator scoreCalc;
 
-    [SerializeField] int id;
+    [SerializeField] int id;    public int GetId() { return id; }
     [SerializeField] float gravity;
     [SerializeField] float speed;
     [SerializeField] float amountRotate;
     [SerializeField] float speedJump;
 
     [SerializeField] CharacterController controller;
-    [SerializeField] GameObject[] Target;// { get; set;}
-        public GameObject[] GetTarget() { return Target; }
-    [SerializeField] GameObject[] Enemy;//{ get; set;}
-        public GameObject[] GetEnemy() { return Enemy; }
-    [SerializeField] SaveImage save;
+    [SerializeField] GameObject[] Target;    public GameObject[] GetTarget() { return Target; }
+    [SerializeField] GameObject[] Enemy;    public GameObject[] GetEnemy() { return Enemy; }
+    [SerializeField] ImageManager save;
     [SerializeField] SoundController soundController;
     [SerializeField] Camera camera;
-        public Camera GetCamera() { return camera; }
+    // public Camera GetCamera() { return camera; }
 
-    public int GetId() { return id; }
+    int pictureNum = 0;
+    List<PictureScore> pictures = new List<PictureScore>();
 
 
     // public GameObject[] GetTarget { get { return target; } }
@@ -33,13 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         //controller = GetComponent<CharacterController>();
         moveDirection = Vector3.zero;
-        scoreCalculator = GetComponent<ScoreCalculator>();
-        /*for (int i = 0; i < target.Length; i++)
-        {
-         
-            //targets[i] = new IsRendered(i);
-            //targets[i] = GameObject.Find("target" + (i+1)).GetComponent<IsRenderded>();
-        }*/
+        
     }
 
     void Update()
@@ -84,27 +77,36 @@ public class PlayerController : MonoBehaviour
         //キーボードの「s」を押したら画像を保存
         if (Input.GetButtonDown("Snap" + id))
         {
-            //save.SaveCameraImage();
-            RayCheck();
-            /*foreach (GameObject obj in Enemy)
-            {
-                var targets = obj.GetComponent<PlayerController>().Target;
 
-                foreach (GameObject tar in targets)
-                {
-                    tar.GetComponent<IsRendered>().Renderedcheck();                    
-                }
-            }*/
+            pictureNum++;
+            save.SaveCameraImage();
+            Snapshot();
 
             soundController.PlaySE(SoundController.Sound.camera);
 
         }
 
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            save.DeleteImage();
+        }
+
+
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+
+            foreach (var pic in pictures)
+            {
+                Debug.Log("player" + pic.ID + " " + pic.num + "枚目:" + pic.GetPictureScore() + "点");
+            }
+        }
+
     }
 
-    void RayCheck()
+    void Snapshot()
     {
-
+        ScoreCalculator scoreCalc = new ScoreCalculator(camera);
         foreach (var ene in Enemy)
         {
             var targets = ene.GetComponent<PlayerController>().Target;
@@ -113,28 +115,29 @@ public class PlayerController : MonoBehaviour
             {
                 // Debug.Log(tar.transform.position);
                 Vector3 vec = (tar.transform.position - camera.transform.position).normalized;
-                Ray ray = new Ray(camera.transform.position,vec);
-                int layer_mask = LayerMask.GetMask(new string[] { "RayCheckable"});
+                Ray ray = new Ray(camera.transform.position, vec);
+                int layer_mask = LayerMask.GetMask(new string[] { "RayCheckable" });
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity,layer_mask))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
                 {
                     Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
-                    float theta = Mathf.Acos(Vector3.Dot(forward,vec) / (forward.magnitude * vec.magnitude)) * Mathf.Rad2Deg;
+                    float theta = Mathf.Acos(Vector3.Dot(forward, vec) / (forward.magnitude * vec.magnitude)) * Mathf.Rad2Deg;
                     //Debug.Log(theta);
                     var hFOV = Mathf.Rad2Deg * 2 * Mathf.Atan(Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * camera.aspect);
                     //Debug.Log(hFOV);
-                    if (theta < hFOV/2 && hit.collider.tag== "target")
+                    if (theta < hFOV / 2 && hit.collider.tag == "target")
                     {
-                        scoreCalculator.Calc(tar);
+                        scoreCalc.Calc(tar);
+                        //scoreCalc.PrintScore();
 
                         Debug.DrawRay(camera.transform.position, vec * hit.distance, Color.red, 1);
-                       // Debug.Log((Vector2)camera.WorldToScreenPoint(tar.transform.position));
-                       // Debug.Log((Vector2)camera.WorldToViewportPoint(tar.transform.position));
+                        // Debug.Log((Vector2)camera.WorldToScreenPoint(tar.transform.position));
+                        // Debug.Log((Vector2)camera.WorldToViewportPoint(tar.transform.position));
                     }
                 }
             }
         }
-
+        pictures.Add(new PictureScore(id, pictureNum, scoreCalc.distanceScore, scoreCalc.angleScore, scoreCalc.positionScore));
         //scoreCalculator.PrintScore();
     }
 }
