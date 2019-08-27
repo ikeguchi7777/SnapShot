@@ -8,4 +8,5 @@ public class ScoreConfig
     public static int headScore = 5, handScore = 3, legScore = 1;
     public static float maxPointDistance = 5.0f;
     public static float dispersion = 40.0f;
+    public static float rotationBonus = 1.0f;
 }

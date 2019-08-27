@@ -20,7 +20,8 @@ public class PlayerBodyPoint : MonoBehaviour
         {
             score += GetScore(_camera, leg.position, ScoreConfig.headScore);
         }
-        return score;
+        var degree = Vector3.Angle(_camera.transform.forward, transform.forward);
+        return (int)(score * Mathf.Pow((degree / 180.0f + 0.5f), ScoreConfig.rotationBonus));
     }
 
     int GetScore(Camera _camera,Vector3 pos,int rate)
