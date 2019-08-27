@@ -1,26 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //File.~を使うため
 using System.IO;
 
 public class ImageManager : MonoBehaviour
 {
-    [SerializeField] Camera eyeCamera;
+    [SerializeField] Camera eyeCamera = default;
     private Texture2D texture;
     int X;
     int Y;
 
     int id;
-    int photoNumber = 1;
+    int imageNumber = 0;
 
-    //[SerializeField] SoundController soundController;
+    //テスト用
+    static int[] EachImageNum = new int[] { 4, 5, 6, 7 }; public int[] GetEachImageNum() { return EachImageNum; }
+    //static int[] MAXimageNum  = new int[4];    
+    public int GetMAXimageNum() { return Mathf.Max(EachImageNum); }
 
     public ImageManager() { }
 
     // Use this for initialization
     void Start()
     {
+
+
         if (GetComponent<PlayerController>())
         {
             id = GetComponent<PlayerController>().GetId();
@@ -45,19 +51,13 @@ public class ImageManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameObject obj = new GameObject();
-            obj.name = "picture";
-            obj.AddComponent<SpriteRenderer>();
-            obj.GetComponent<SpriteRenderer>().sprite = SpriteFromTexture2D(1, 1);
-            obj.transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            Debug.Log("ok");
-        }
+
     }
 
     public void SaveCameraImage()
     {
+        imageNumber++;
+        EachImageNum[id - 1]++;
         // Remember currently active render textureture
         RenderTexture currentRT = RenderTexture.active;
         // Set the supplied RenderTexture as the active one
@@ -72,8 +72,8 @@ public class ImageManager : MonoBehaviour
         //PNGに変換
         byte[] bytes = texture.EncodeToPNG();
         //保存
-        File.WriteAllBytes(Application.dataPath + "/Image/" + id + "P/" + photoNumber + ".png", bytes);
-        photoNumber++;
+        File.WriteAllBytes(Application.dataPath + "/Image/" + id + "P/" + id + "P_" + imageNumber + ".png", bytes);
+
     }
 
     public void DeleteImage()
@@ -86,9 +86,10 @@ public class ImageManager : MonoBehaviour
     }
 
 
-    byte[] ReadPngFile(int playerID ,int photoNumber)
+    byte[] ReadPngFile(int playerID, int imageNumber)
     {
-        FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + photoNumber + ".png", FileMode.Open, FileAccess.Read);
+        FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + playerID + "P_" + +imageNumber + ".png", FileMode.Open, FileAccess.Read);
+
         BinaryReader bin = new BinaryReader(fileStream);
         byte[] values = bin.ReadBytes((int)bin.BaseStream.Length);
 
@@ -97,10 +98,9 @@ public class ImageManager : MonoBehaviour
         return values;
     }
 
-
-    Texture2D ReadPng(int playerID ,int photoNumber)
+    Texture2D ReadPng(int playerID, int imageNumber)
     {
-        byte[] readBinary = ReadPngFile(playerID, photoNumber);
+        byte[] readBinary = ReadPngFile(playerID, imageNumber);
 
         int pos = 16; // 16バイトから開始
 
@@ -122,16 +122,36 @@ public class ImageManager : MonoBehaviour
         return texture;
     }
 
-    public Sprite SpriteFromTexture2D(int playerID ,int photoNumber)
+    public Sprite SpriteFromTexture2D(int playerID, int imageNumber)
     {
         Sprite sprite = null;
-        if (ReadPng(playerID ,photoNumber))
+        if (ReadPng(playerID, imageNumber))
         {
-            Texture2D png = ReadPng(playerID, photoNumber);
+            Texture2D png = ReadPng(playerID, imageNumber);
             //Texture2DからSprite作成
-            sprite = Sprite.Create(png, new Rect(0, 0, png.width, png.height), new Vector2(0.5f,0.5f));
+            sprite = Sprite.Create(png, new Rect(0, 0, png.width, png.height), new Vector2(0.5f, 0.5f));
         }
         return sprite;
     }
 
+    public GameObject LoadImage(int playerID, int imageNumber)
+    {
+
+        GameObject obj = new GameObject(playerID + "P_" + imageNumber);
+
+        obj.transform.parent = GameObject.Find("Canvas/" + playerID + "PPanel").transform;
+        obj.AddComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+        obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        obj.AddComponent<Image>().sprite = SpriteFromTexture2D(playerID, imageNumber);
+        obj.GetComponent<Image>().preserveAspect = true;
+        obj.GetComponent<Image>().SetNativeSize();
+
+        //obj.AddComponent<SpriteRenderer>();
+        //obj.GetComponent<SpriteRenderer>().sprite = SpriteFromTexture2D(playerID, photoNumber);
+        //obj.transform.position = new Vector2(X, Y);
+        //obj.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+
+
+        return obj;
+    }
 }

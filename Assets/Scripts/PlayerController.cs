@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        //キーボードの「s」を押したら画像を保存
+        //画像を保存
         if (Input.GetButtonDown("Snap" + id))
         {
 
