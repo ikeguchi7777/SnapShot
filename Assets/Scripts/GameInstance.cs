@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameInstance
 {
+
+    public List<PictureScore>[] EachPicture = new List<PictureScore>[4];
+
     public int PlayerNum;                   //プレイヤーの人数1～4
     GameInstance(){
         init();
@@ -20,5 +23,10 @@ public class GameInstance
 
     public void init(){
         PlayerNum = 0;
+        foreach (var item in EachPicture)
+        {
+            item.Clear();
+        }
+            
     }
 }
