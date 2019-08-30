@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameInstance
 {
+
+    public List<PictureScore>[] EachPicture = new List<PictureScore>[4];
+
     public int PlayerNum;                   //プレイヤーの人数1～4
 
     public Sprite camtest;
@@ -25,7 +28,6 @@ public class GameInstance
     }
 
     public void init(){
-        PlayerNum = 4;
         photos = new Queue<Sprite>[4];
         scores = new Queue<int>[4];
         for (int i = 0; i < photos.Length; i++)
@@ -33,5 +35,11 @@ public class GameInstance
             photos[i] = new Queue<Sprite>();
             scores[i] = new Queue<int>();
         }
+        PlayerNum = 0;
+        foreach (var item in EachPicture)
+        {
+            item.Clear();
+        }
+            
     }
 }

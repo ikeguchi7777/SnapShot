@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        //キーボードの「s」を押したら画像を保存
+        //画像を保存
         if (Input.GetButtonDown("Snap" + id))
         {
 
@@ -93,14 +93,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-
-            foreach (var pic in pictures)
-            {
-                Debug.Log("player" + pic.ID + " " + pic.num + "枚目:" + pic.GetPictureScore() + "点");
-            }
-        }
+       
 
     }
 
@@ -137,7 +130,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        pictures.Add(new PictureScore(id, pictureNum, scoreCalc.distanceScore, scoreCalc.angleScore, scoreCalc.positionScore));
+        //pictures.Add(new PictureScore(id, pictureNum, scoreCalc.distanceScore, scoreCalc.angleScore, scoreCalc.positionScore));
         //scoreCalculator.PrintScore();
     }
 }
