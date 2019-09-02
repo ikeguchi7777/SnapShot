@@ -6,6 +6,8 @@ public class GameInstance
 {
 
     public List<PictureScore>[] EachPicture = new List<PictureScore>[4];
+    public int[] TotalScore { get; set;} = new int[4];
+    public int[] Ranking { get; set; } = new int[4];
 
     public int PlayerNum;                   //プレイヤーの人数1～4
     GameInstance(){
@@ -22,11 +24,23 @@ public class GameInstance
     }
 
     public void init(){
-        PlayerNum = 0;
-        foreach (var item in EachPicture)
+        PlayerNum = 4;
+
+        for (int i = 0; i < EachPicture.Length; i++)
         {
-            item.Clear();
+            EachPicture[i] = new List<PictureScore>();
+            EachPicture[i].Clear();
         }
-            
+        //デバック用
+        for (int i = 0; i < EachPicture.Length; i++)
+        {
+            for (int j = 0; j < 1 + i; j++)
+            {
+                EachPicture[i].Add(new PictureScore(j.ToString(), 100 * j));
+
+            }
+
+        }
+
     }
 }
