@@ -35,11 +35,11 @@ public class GameInstance
             photos[i] = new Queue<Sprite>();
             scores[i] = new Queue<int>();
         }
-        PlayerNum = 0;
-        foreach (var item in EachPicture)
+        PlayerNum = 4;
+        /*foreach (var item in EachPicture)
         {
             item.Clear();
-        }
+        }*/
             
     }
 }
