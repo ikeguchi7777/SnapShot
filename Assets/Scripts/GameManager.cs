@@ -59,5 +59,10 @@ public class GameManager : MonoBehaviour
         {
             pause.Resume();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Result");
+        }
     }
 }

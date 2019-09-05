@@ -17,6 +17,10 @@ public class GameInstance
 
     public Queue<int>[] scores;
     GameInstance(){
+        for (int i = 0; i < EachPicture.Length; i++)
+        {
+            EachPicture[i] = new List<PictureScore>();
+        }
         init();
     }
     private static GameInstance _instance;
@@ -34,7 +38,6 @@ public class GameInstance
 
         for (int i = 0; i < EachPicture.Length; i++)
         {
-            EachPicture[i] = new List<PictureScore>();
             EachPicture[i].Clear();
         }
         //デバック用

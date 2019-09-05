@@ -32,7 +32,6 @@ public class SmartPhoneCamera : MonoBehaviour
     {
         var score = CaluculateScore(playerID);
         Debug.Log("Score:"+score);
-        GameInstance.Instance.scores[playerID].Enqueue(score);
         var _tex = new Texture2D(width, height,TextureFormat.RGBA32,false);
         var request = AsyncGPUReadback.Request(_panelTexture);
         await UniTask.WaitUntil(() => request.done == true);
@@ -43,12 +42,12 @@ public class SmartPhoneCamera : MonoBehaviour
         _tex.Apply();
         var buf_png = _tex.EncodeToPNG();
         var path = Application.dataPath +"/Image/" + (playerID+1) + "P/" + (playerID+1) + "P_" + photoNum + ".png";
+        GameInstance.Instance.EachPicture[playerID].Add(new PictureScore(path, score));
         photoNum++;
         using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
         {
             await fs.WriteAsync(buf_png, 0, buf_png.Length);
         }
-        GameInstance.Instance.photos[playerID].Enqueue(Sprite.Create(_tex, new Rect(0, 0, width, height), Vector2.zero));
         Debug.Log("Saved");
     }
 
