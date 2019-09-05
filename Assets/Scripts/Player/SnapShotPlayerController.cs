@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Invector.CharacterController;
+using UniRx.Async;
 
 public class SnapShotPlayerController : vThirdPersonController
 {
@@ -70,7 +71,8 @@ public class SnapShotPlayerController : vThirdPersonController
 
     public void TakePhoto()
     {
-        StartCoroutine(smartPhone.TakePhoto(PlayerID));
+        smartPhone.TakePhoto(PlayerID);
+        //StartCoroutine(smartPhone.TakePhoto(PlayerID));
         SoundController.Instance.PlaySE(SoundController.Sound.camera);
     }
 

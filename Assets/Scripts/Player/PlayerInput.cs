@@ -23,7 +23,11 @@ public class PlayerInput : MonoBehaviour
             Debug.LogError("SnapShotPlayerControllerの取得失敗");
 
         tpCamera = FindObjectOfType<GameManager>().tpCameras[cc.PlayerID];
+#if UNITY_EDITOR
+        keyname = new KeyNameList(0);
+#else
         keyname = new KeyNameList(cc.PlayerID);
+#endif
         if (tpCamera) tpCamera.SetMainTarget(this.transform);
         else Debug.LogError("TPCameraの取得失敗");
         tpCamera.SetRenderTexture(cc.PanelTexture());
