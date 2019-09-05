@@ -15,11 +15,7 @@ public class ImageManager : MonoBehaviour
     int id;
     int imageNumber = 0;
 
-    //テスト用
-    static int[] EachImageNum = new int[] { 4, 5, 6, 7 }; public int[] GetEachImageNum() { return EachImageNum; }
-    //static int[] MAXimageNum  = new int[4];    
-    public int GetMAXimageNum() { return Mathf.Max(EachImageNum); }
-
+   
     public ImageManager() { }
 
     // Use this for initialization
@@ -57,7 +53,7 @@ public class ImageManager : MonoBehaviour
     public void SaveCameraImage()
     {
         imageNumber++;
-        EachImageNum[id - 1]++;
+
         // Remember currently active render textureture
         RenderTexture currentRT = RenderTexture.active;
         // Set the supplied RenderTexture as the active one
