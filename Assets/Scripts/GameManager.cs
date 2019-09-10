@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public SnapShotPlayerController[] Players{get;private set;}
 
     PauseSystem pause;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -57,6 +58,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             pause.Resume();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Result");
         }
     }
 }

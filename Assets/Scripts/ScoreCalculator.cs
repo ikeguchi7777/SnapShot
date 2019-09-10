@@ -25,7 +25,8 @@ public class ScoreCalculator : MonoBehaviour
     //Enemy = playerController.GetEnemy();
 
 
-    public ScoreCalculator(Camera camera) {
+    public ScoreCalculator(Camera camera)
+    {
         this.camera = camera;
     }
 
@@ -43,14 +44,14 @@ public class ScoreCalculator : MonoBehaviour
         return (Vector2)camera.WorldToViewportPoint(target.transform.position);
     }
 
-    
+
     public void Calc(GameObject tar)
     {
-        
+
 
         float d = 100 - distanceWeight * Mathf.Abs(CalcDistance(tar) - 1);
         d = d > 0 ? d : 0;
-        
+
         float a = angleWeight * CalcAngle(tar);
         a = a > 0 ? a : 0;
 

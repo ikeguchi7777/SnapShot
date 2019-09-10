@@ -10,7 +10,17 @@ public class GameInstance
     public int[] Ranking { get; set; } = new int[4];
 
     public int PlayerNum;                   //プレイヤーの人数1～4
+
+    public Sprite camtest;
+
+    public Queue<Sprite>[] photos;
+
+    public Queue<int>[] scores;
     GameInstance(){
+        for (int i = 0; i < EachPicture.Length; i++)
+        {
+            EachPicture[i] = new List<PictureScore>();
+        }
         init();
     }
     private static GameInstance _instance;
@@ -28,7 +38,6 @@ public class GameInstance
 
         for (int i = 0; i < EachPicture.Length; i++)
         {
-            EachPicture[i] = new List<PictureScore>();
             EachPicture[i].Clear();
         }
         //デバック用

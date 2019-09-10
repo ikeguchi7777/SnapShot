@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Invector.CharacterController;
+using UniRx.Async;
 
 public class SnapShotPlayerController : vThirdPersonController
 {
@@ -19,6 +20,9 @@ public class SnapShotPlayerController : vThirdPersonController
     Vector3 nextEulerAngle;
     Vector3 eulerAngle;
     Vector3 eulerVelocity;
+    SmartPhoneCamera smartPhone;
+    PlayerBodyPoint point;
+
     float x, y;
 
     public int PlayerID { get; set; }
@@ -27,11 +31,14 @@ public class SnapShotPlayerController : vThirdPersonController
     {
         nextEulerAngle = Vector3.zero;
         eulerVelocity = Vector3.zero;
+        smartPhone = GetComponentInChildren<SmartPhoneCamera>();
+        point = GetComponent<PlayerBodyPoint>();
     }
 
     public void AimCamera(bool value)
     {
         isStrafing = value;
+        Sprint(false);
     }
 
     public void RotateSpine(float x,float y)
@@ -57,4 +64,20 @@ public class SnapShotPlayerController : vThirdPersonController
         return new Vector3(Mathf.Clamp(euler.x, -SpineRange.y, SpineRange.y), Mathf.Clamp(euler.y, -SpineRange.x, SpineRange.x), euler.z);
     }
 
+    public RenderTexture PanelTexture()
+    {
+        return smartPhone._panelTexture;
+    }
+
+    public void TakePhoto()
+    {
+        smartPhone.TakePhoto(PlayerID);
+        //StartCoroutine(smartPhone.TakePhoto(PlayerID));
+        SoundController.Instance.PlaySE(SoundController.Sound.camera);
+    }
+
+    public int CalculateScore(Camera _camera)
+    {
+        return point.CalculateScore(_camera);
+    }
 }
