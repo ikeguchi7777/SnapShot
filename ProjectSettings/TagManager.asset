@@ -6,6 +6,7 @@ TagManager:
   tags:
   - EyeCamera
   - target
+  - CheckArea
   layers:
   - Default
   - TransparentFX

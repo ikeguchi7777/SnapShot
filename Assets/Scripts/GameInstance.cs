@@ -41,7 +41,7 @@ public class GameInstance
             EachPicture[i].Clear();
         }
         //デバック用
-        for (int i = 0; i < EachPicture.Length; i++)
+        /*for (int i = 0; i < EachPicture.Length; i++)
         {
             for (int j = 0; j < 25 + i; j++)
             {
@@ -49,7 +49,7 @@ public class GameInstance
 
             }
 
-        }
+        }*/
 
     }
 }

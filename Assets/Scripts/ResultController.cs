@@ -49,12 +49,12 @@ public class ResultController : MonoBehaviour
 
         }
 
-        for (int i = 1; i <= imageMAX; i++)
+        for (int i = 0; i < imageMAX; i++)
         {
             for (int j = 0; j < GameInstance.Instance.PlayerNum; j++)
             {
 
-                if (GameInstance.Instance.EachPicture[j].Count >= i)
+                if (GameInstance.Instance.EachPicture[j].Count > i )
                 {
                     images[j].Add(imageManager.LoadImage(j + 1, i));
                 }
@@ -78,7 +78,7 @@ public class ResultController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (imageMAX + 1 == imageNumber)
+        if (imageMAX  == imageNumber)
         {
             TotalDisp();
             imageNumber = 0;
@@ -93,10 +93,10 @@ public class ResultController : MonoBehaviour
         for (int i = 0; i < imageMAX + 1; i++)
         {
 
-            imageNumber++;
+            
             PictureDisp();
             yield return new WaitForSeconds(waitTime);
-
+            imageNumber++;
         }
     }
 
@@ -107,12 +107,12 @@ public class ResultController : MonoBehaviour
 
         for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
         {
-            if (GameInstance.Instance.EachPicture[i].Count >= imageNumber)
+            if (GameInstance.Instance.EachPicture[i].Count > imageNumber)
             {
                 //images[i].Add(imageManager.LoadImage(i + 1, imageNumber));
                 //images[i][imageNumber - 1].SetActive(true);
 
-                GameObject txt = new GameObject((i + 1) + "P_" + imageNumber + "point");
+                GameObject txt = new GameObject((i + 1) + "P_" + imageNumber  + "point");
 
                 txt.transform.parent = GameObject.Find("Canvas/" + (i + 1) + "PPanel/" + (i + 1) + "P_" + imageNumber).transform;
                 txt.AddComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
@@ -122,13 +122,13 @@ public class ResultController : MonoBehaviour
                 txt.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
                 txt.GetComponent<Text>().fontSize = 250;
 
-                txt.GetComponent<Text>().text = GameInstance.Instance.EachPicture[i][imageNumber - 1].point + "点";
+                txt.GetComponent<Text>().text = GameInstance.Instance.EachPicture[i][imageNumber].point + "点";
 
                 txt.GetComponent<Text>().color = new Color(0, 0, 0, 0);
                 //txt.GetComponent<Text>().resizeTextForBestFit = true;
 
 
-                Move(images[i][imageNumber - 1], txt, ((imageNumber - 1) % IMAGE_X) * 380 + (-760), ((imageNumber - 1) / IMAGE_X % IMAGE_Y) * (-200) + 400, 0.5f);
+                Move(images[i][imageNumber], txt, ((imageNumber) % IMAGE_X) * 380 + (-760), ((imageNumber) / IMAGE_X % IMAGE_Y) * (-200) + 400, 0.5f);
 
             }
         }

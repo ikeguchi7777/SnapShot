@@ -84,8 +84,8 @@ public class ImageManager : MonoBehaviour
 
     byte[] ReadPngFile(int playerID, int imageNumber)
     {
-        //FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + playerID + "P_" + +imageNumber + ".png", FileMode.Open, FileAccess.Read);
-        FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + playerID + "P_1.png", FileMode.Open, FileAccess.Read);
+        FileStream fileStream = new FileStream(GameInstance.Instance.EachPicture[playerID-1][imageNumber].ID, FileMode.Open, FileAccess.Read);
+        //FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + playerID + "P_1.png", FileMode.Open, FileAccess.Read);
 
         BinaryReader bin = new BinaryReader(fileStream);
         byte[] values = bin.ReadBytes((int)bin.BaseStream.Length);
