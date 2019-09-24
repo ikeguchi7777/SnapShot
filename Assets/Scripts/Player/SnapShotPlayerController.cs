@@ -20,10 +20,11 @@ public class SnapShotPlayerController : vThirdPersonController
     Vector3 nextEulerAngle;
     Vector3 eulerAngle;
     Vector3 eulerVelocity;
-    SmartPhoneCamera smartPhone;
+    public SmartPhoneCamera smartPhone { get; private set; }
     PlayerBodyPoint point;
 
     float x, y;
+    public bool isCharging { get; set; } 
 
     public int PlayerID { get; set; }
 
@@ -54,9 +55,14 @@ public class SnapShotPlayerController : vThirdPersonController
         if (isStrafing)
         {
             Spine.rotation *= Quaternion.Euler(eulerAngle);
+            smartPhone.ConsumeStandbyPower(Time.deltaTime);
         }
         else
             nextEulerAngle = Vector3.zero;
+        if (isCharging)
+        {
+            smartPhone.ChargeBattery(5.0f * Time.deltaTime);
+        }
     }
 
     Vector3 ClampSpineEulerAngle(Vector3 euler)
@@ -71,8 +77,9 @@ public class SnapShotPlayerController : vThirdPersonController
 
     public void TakePhoto()
     {
+        if (!smartPhone.Useable)
+            return;
         smartPhone.TakePhoto(PlayerID);
-        //StartCoroutine(smartPhone.TakePhoto(PlayerID));
         SoundController.Instance.PlaySE(SoundController.Sound.camera);
     }
 
@@ -80,4 +87,10 @@ public class SnapShotPlayerController : vThirdPersonController
     {
         return point.CalculateScore(_camera);
     }
+
+    public void ChangeSpeed(float rate)
+    {
+        freeSprintSpeed *= rate;
+    }
+
 }

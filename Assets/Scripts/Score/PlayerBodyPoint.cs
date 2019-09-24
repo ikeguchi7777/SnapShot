@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PlayerBodyPoint : MonoBehaviour
 {
-    [SerializeField] Transform head;
+    [SerializeField] Transform head = default;
     [SerializeField] Transform[] hands = new Transform[2];
     [SerializeField] Transform[] legs = new Transform[2];
+    [SerializeField] LayerMask layerMask;
+
+    private void Awake()
+    {
+        enabled = false;
+    }
 
     public int CalculateScore(Camera _camera)
     {
@@ -34,7 +40,7 @@ public class PlayerBodyPoint : MonoBehaviour
         {
             Vector3 dir = pos - _camera.transform.position;
             Debug.DrawRay(_camera.transform.position, dir, Color.red, 1);
-            if (!Physics.Raycast(_camera.transform.position, dir, dir.magnitude))
+            if (!Physics.Raycast(_camera.transform.position, dir, dir.magnitude,layerMask))
             {
 
                 return (int)((rate + GetCenterBonus(view_pos)) * GetScoreofDistance(dir.magnitude));

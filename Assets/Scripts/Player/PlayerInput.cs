@@ -24,13 +24,16 @@ public class PlayerInput : MonoBehaviour
 
         tpCamera = FindObjectOfType<GameManager>().tpCameras[cc.PlayerID];
 #if UNITY_EDITOR
-        keyname = new KeyNameList(0);
+        keyname = new KeyNameList(cc.PlayerID);
 #else
         keyname = new KeyNameList(cc.PlayerID);
 #endif
         if (tpCamera) tpCamera.SetMainTarget(this.transform);
         else Debug.LogError("TPCameraの取得失敗");
         tpCamera.SetRenderTexture(cc.PanelTexture());
+        cc.smartPhone.changeBatteryUI = tpCamera.ChangeBatteryUI;
+        tpCamera.SetBatteryBar(cc.smartPhone);
+        cc.GetComponent<ChangeLayer>().ChangeObjectLayer(cc.PlayerID);
     }
 
     protected virtual void LateUpdate()
