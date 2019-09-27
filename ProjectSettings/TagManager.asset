@@ -6,7 +6,7 @@ TagManager:
   tags:
   - EyeCamera
   - target
-  - CheckArea
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -17,11 +17,11 @@ TagManager:
   - 
   - 
   - RayCheckable
-  - 
-  - 
-  - 
-  - 
-  - 
+  - 1P
+  - 2P
+  - 3P
+  - 4P
+  - ChargeArea
   - 
   - 
   - 

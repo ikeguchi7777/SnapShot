@@ -34,6 +34,7 @@ public class PauseSystem : MonoBehaviour
 #if UNITY_EDITOR
         isPauseable = true;
 #endif
+        enabled = false;
     }
 
     public void Pause(int id)

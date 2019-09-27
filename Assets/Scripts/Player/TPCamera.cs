@@ -10,6 +10,7 @@ public class TPCamera : vThirdPersonCamera
 
     private Transform SightPosition;
     private RawImage Screen;
+    private Slider batbar;
 
     protected bool isFirstPerson = false;
     public void SetId(int id)
@@ -48,6 +49,15 @@ public class TPCamera : vThirdPersonCamera
         Screen.enabled = false;
     }
 
+    public void SetBatteryBar(SmartPhoneCamera smartPhone)
+    {
+        batbar = GetComponentInChildren<Slider>();
+        smartPhone.OnBatterChanged += value =>
+        {
+            batbar.value = value;
+        };
+    }
+
     protected override void FixedUpdate()
     {
         if (target == null || targetLookAt == null) return;
@@ -60,4 +70,27 @@ public class TPCamera : vThirdPersonCamera
             CameraMovement();
     }
 
+    public void ChangeBatteryUI(bool IO)
+    {
+        if (IO)
+        {
+            Screen.color = Color.white;
+        }
+        else
+        {
+            Screen.color = Color.black;
+        }
+    }
+
+    public void SetLayer(int layerMask,bool isSet)
+    {
+        if (isSet)
+        {
+            _camera.cullingMask |= layerMask;
+        }
+        else
+        {
+            _camera.cullingMask &= ~layerMask;
+        }
+    }
 }
