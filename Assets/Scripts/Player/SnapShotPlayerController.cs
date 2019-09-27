@@ -26,10 +26,12 @@ public class SnapShotPlayerController : vThirdPersonController
     float x, y;
 
     public int PlayerID { get; set; }
-    public Collider collider { get; private set; } = null;
+    public Collision collision { get; private set; }
 
     void Awake()
     {
+
+        
         nextEulerAngle = Vector3.zero;
         eulerVelocity = Vector3.zero;
         smartPhone = GetComponentInChildren<SmartPhoneCamera>();
@@ -83,13 +85,11 @@ public class SnapShotPlayerController : vThirdPersonController
         return point.CalculateScore(_camera);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        collider = other;
+        
+        collision = other;
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        collider = null;
-    }
+  
 }

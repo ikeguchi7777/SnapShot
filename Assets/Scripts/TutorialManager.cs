@@ -15,13 +15,14 @@ public class TutorialManager : GameManager
     Message message;
 
 
-    //KeyNameList[] keynamelist = new KeyNameList[GameInstance.Instance.PlayerNum] ;
-    KeyNameList[] keynamelist = new KeyNameList[1];//デバッグ用
+    KeyNameList[] keynamelist = new KeyNameList[GameInstance.Instance.PlayerNum];
+    //KeyNameList[] keynamelist = new KeyNameList[1];//デバッグ用
 
     int phaseNum = 1;
+    bool tmp;
 
     bool[] checks = new bool[GameInstance.Instance.PlayerNum];
-    
+
 
 
     public enum Phase
@@ -36,17 +37,17 @@ public class TutorialManager : GameManager
 
     void Start()
     {
-        for (int i = 0; i < keynamelist.Length; i++)
+        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
         {
             keynamelist[i] = new KeyNameList(i);
-
+            checks[i] = false;
         }
 
 
         message.SetMessagePanel("始めにチュートリアルを行います。<>" +
             "まずは左アナログパッドを動かして光っているエリアまで移動してください。<>" +
             "右アナログパッドで視点を操作することができます。<>" +
-            "2ボタンを押すことでジャンプすることができます。<>" +
+            "1ボタンを押すことでジャンプすることができます。<>" +
             "次はR1ボタンを押して、カメラを構えましょう。<>" +
             "そのまま2ボタンを押すことで写真を撮ることができます。<>" +
             "他のプレイヤーを大きく正面から撮って、高得点を目指そう!");
@@ -55,44 +56,27 @@ public class TutorialManager : GameManager
 
     void Update()
     {
-  
+        //Debug.Log(phaseNum);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+
+            for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+            {
+
+                Debug.Log(Players[i].collision.transform.tag);
+            }
+        }
         switch (phaseNum)
         {
             case (int)Phase.move:
 
 
-
-                /* float rangeX = checkarea.GetComponent<RectTransform>().sizeDelta.x/2;
-                 float rangeZ = checkarea.GetComponent<RectTransform>().sizeDelta.y/2;
-                Debug.Log(rangeX + " " + rangeZ);
-
                 for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                 {
 
-                     float dx = Mathf.Abs((Players[i].transform.position - checkarea.transform.position).x);
-                     float dz = Mathf.Abs((Players[i].transform.position - checkarea.transform.position).z);
-                    Debug.Log(dx + " " + dz);
 
-                    if (dx <= rangeX && dz <= rangeZ)
-                    {
-                        checks[i] = true;
-                    }
-                    else
-                    {
-                        checks[i] = false;
-                    }
-                    Debug.Log(checks[i]);
-                }*/
 
-                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                {
-
-                    if (Input.GetKeyDown(KeyCode.D))
-                    {
-                        Debug.Log(Players[i].collider.transform.tag);
-                    }
-
-                    if (Players[i].collider && Players[i].collider.transform.tag == "CheckArea")
+                    if (Players[i].collision.transform.tag == "CheckArea")
                     {
                         checks[i] = true;
                     }
@@ -104,7 +88,7 @@ public class TutorialManager : GameManager
                 }
 
 
-                bool tmp = true;
+                tmp = true;
                 foreach (var item in checks)
                 {
                     tmp &= item;
@@ -116,53 +100,183 @@ public class TutorialManager : GameManager
                     {
                         message.Next();
                         phaseNum++;
+
+                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                        {
+                            checks[i] = false;
+                        }
+
+                        Sequence viewseq = DOTween.Sequence();
+                        viewseq.AppendInterval(7f);
+                        viewseq.OnComplete(() =>
+                        {
+                            message.Next();
+                            phaseNum++;
+                        });
+                    }
+                }
+                break;
+
+            case (int)Phase.view:
+
+
+                break;
+
+            case (int)Phase.jump:
+
+                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                {
+                    //if (Input.GetButtonDown(keynamelist[i].Jump))
+                    if (Input.GetButtonDown(keynamelist[0].Jump))//デバッグ
+                    {
+                        checks[i] = true;
+                    }
+
+                }
+
+
+                tmp = true;
+                foreach (var item in checks)
+                {
+                    tmp &= item;
+                }
+
+                if (tmp)
+                {
+                    if (message.isOneMessage)
+                    {
+                        message.Next();
+                        phaseNum++;
+
+                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                        {
+                            checks[i] = false;
+                        }
+
                     }
                 }
                 break;
 
             case (int)Phase.aim:
-                if (Input.GetButtonDown(keynamelist[0].AimCamera))
+
+                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                {
+                    //if (Input.GetButtonDown(keynamelist[i].AimCamera))
+                    if (Input.GetButtonDown(keynamelist[0].AimCamera))//デバッグ
+                    {
+                        checks[i] = true;
+                    }
+
+                }
+
+
+                tmp = true;
+                foreach (var item in checks)
+                {
+                    tmp &= item;
+                }
+
+                if (tmp)
                 {
                     if (message.isOneMessage)
                     {
                         message.Next();
                         phaseNum++;
+
+                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                        {
+                            checks[i] = false;
+                        }
+
                     }
                 }
                 break;
 
             case (int)Phase.snap:
-                if (Input.GetButton(keynamelist[0].AimCamera)&&Input.GetButtonDown(keynamelist[0].Snap))
+
+                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                {
+                    //if (Input.GetButton(keynamelist[i].AimCamera) && Input.GetButtonDown(keynamelist[i].Snap)))
+                    if (Input.GetButton(keynamelist[0].AimCamera) && Input.GetButtonDown(keynamelist[0].Snap))//デバッグ
+                    {
+                        checks[i] = true;
+                    }
+
+                }
+
+
+                tmp = true;
+                foreach (var item in checks)
+                {
+                    tmp &= item;
+                }
+
+                if (tmp)
                 {
                     if (message.isOneMessage)
                     {
                         message.Next();
                         phaseNum++;
+
+                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                        {
+                            checks[i] = false;
+                        }
+
                     }
                 }
                 break;
 
             default:
-                if (Input.GetButtonDown(keynamelist[0].Snap))
+
+                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+                {
+
+                    if (Input.GetButtonDown(keynamelist[i].Snap))
+                    {
+                        checks[i] = true;
+                    }
+
+                }
+
+
+                tmp = false;
+                foreach (var item in checks)
+                {
+                    tmp |= item;
+                }
+
+                if (tmp)
                 {
                     if (message.isOneMessage)
                     {
+                        if (phaseNum == (int)Phase.start)
+                        {
+                            Sequence barrierseq = DOTween.Sequence();
+                            barrierseq.AppendInterval(3f);
+                            barrierseq.OnComplete(() =>
+                            {
+                                if (barrier.activeSelf == true)
+                                {
+                                    barrier.SetActive(false);
+                                }
+
+                                Instantiate(checkarea, new Vector3(0, -2.95f, 15), Quaternion.identity);
+                            });
+                        }
+
+
                         message.Next();
                         phaseNum++;
 
-                        Sequence seq = DOTween.Sequence();
-                        seq.AppendInterval(3f);
-                        seq.OnComplete(() =>
+                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                         {
-                            if (barrier.activeSelf == true)
-                            {
-                                barrier.SetActive(false);
-                            }
-
-                            Instantiate(checkarea);
-                        });
+                            checks[i] = false;
+                        }
                     }
                 }
+
+
                 break;
         }
 
