@@ -22,7 +22,6 @@ public class SnapShotPlayerController : vThirdPersonController
     Vector3 eulerVelocity;
     public SmartPhoneCamera smartPhone { get; private set; }
     PlayerBodyPoint point;
-
     float x, y;
     public bool isCharging { get; set; } 
 
@@ -92,5 +91,7 @@ public class SnapShotPlayerController : vThirdPersonController
     {
         freeSprintSpeed *= rate;
     }
+
+    
 
 }

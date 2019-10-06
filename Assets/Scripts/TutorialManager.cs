@@ -56,38 +56,21 @@ public class TutorialManager : GameManager
 
     void Update()
     {
-        //Debug.Log(phaseNum);
+        //Debug.Log(phaseNum);//デバッグ用
         if (Input.GetKeyDown(KeyCode.D))
         {
 
             for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
             {
 
-                Debug.Log(Players[i].collision.transform.tag);
+               // Debug.Log(Players[i].collision.transform.tag);
             }
         }
         switch (phaseNum)
         {
-            case (int)Phase.move:
+            case (int)Phase.move:                               
 
-
-                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                {
-
-
-
-                    if (Players[i].collision.transform.tag == "CheckArea")
-                    {
-                        checks[i] = true;
-                    }
-                    else
-                    {
-                        checks[i] = false;
-                    }
-                    // Debug.Log(checks[i]);
-                }
-
-
+                /*
                 tmp = true;
                 foreach (var item in checks)
                 {
@@ -98,13 +81,7 @@ public class TutorialManager : GameManager
                 {
                     if (message.isOneMessage)
                     {
-                        message.Next();
-                        phaseNum++;
-
-                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                        {
-                            checks[i] = false;
-                        }
+                        NextPhase();
 
                         Sequence viewseq = DOTween.Sequence();
                         viewseq.AppendInterval(7f);
@@ -114,7 +91,7 @@ public class TutorialManager : GameManager
                             phaseNum++;
                         });
                     }
-                }
+                }*/
                 break;
 
             case (int)Phase.view:
@@ -145,13 +122,7 @@ public class TutorialManager : GameManager
                 {
                     if (message.isOneMessage)
                     {
-                        message.Next();
-                        phaseNum++;
-
-                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                        {
-                            checks[i] = false;
-                        }
+                        NextPhase();
 
                     }
                 }
@@ -180,13 +151,7 @@ public class TutorialManager : GameManager
                 {
                     if (message.isOneMessage)
                     {
-                        message.Next();
-                        phaseNum++;
-
-                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                        {
-                            checks[i] = false;
-                        }
+                        NextPhase();
 
                     }
                 }
@@ -215,13 +180,7 @@ public class TutorialManager : GameManager
                 {
                     if (message.isOneMessage)
                     {
-                        message.Next();
-                        phaseNum++;
-
-                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                        {
-                            checks[i] = false;
-                        }
+                        NextPhase();
 
                     }
                 }
@@ -266,13 +225,8 @@ public class TutorialManager : GameManager
                         }
 
 
-                        message.Next();
-                        phaseNum++;
-
-                        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                        {
-                            checks[i] = false;
-                        }
+                        NextPhase();
+                    
                     }
                 }
 
@@ -284,6 +238,30 @@ public class TutorialManager : GameManager
 
     }
 
+    public void NextPhase() {
 
+        if (phaseNum == (int)Phase.move)
+        {
+            Sequence viewseq = DOTween.Sequence();
+            viewseq.AppendInterval(7f);
+            viewseq.OnComplete(() =>
+            {
+                message.Next();
+                phaseNum++;
+            });
+        }
+
+        message.Next();
+        phaseNum++;
+
+        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+        {
+            checks[i] = false;
+        }
+
+
+        
+
+    }
 
 }
