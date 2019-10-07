@@ -39,6 +39,8 @@ public class Message : MonoBehaviour
 
     private bool next = false;
 
+    CanvasGroup canvasGroup;
+
     void Start()
     {
         clickIcon = transform.Find("Panel/Image").GetComponent<Image>();
@@ -47,6 +49,7 @@ public class Message : MonoBehaviour
         messageText.text = "";
         SetMessage(allMessage);
         keyname = new KeyNameList(0);
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     void Update()
@@ -98,6 +101,11 @@ public class Message : MonoBehaviour
                 elapsedTime = 0f;
             }
 
+            if (canvasGroup.alpha>0.5f)
+            {
+                canvasGroup.alpha -= 0.5f * Time.deltaTime /2;
+            }
+            
 
             if (next)
             {
@@ -108,6 +116,7 @@ public class Message : MonoBehaviour
                 elapsedTime = 0f;
                 isOneMessage = false;
                 next = false;
+                canvasGroup.alpha = 1;
                 //　メッセージが全部表示されていたらゲームオブジェクト自体の削除
                 if (messageNum >= splitMessage.Length)
                 {

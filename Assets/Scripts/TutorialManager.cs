@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : GameManager
 {
@@ -27,12 +28,15 @@ public class TutorialManager : GameManager
 
     public enum Phase
     {
-        start = 1,
+        intro = 1,
         move,
         view,
         jump,
         aim,
         snap,
+        end,
+        start,
+
     }
 
     void Start()
@@ -45,12 +49,14 @@ public class TutorialManager : GameManager
 
 
         message.SetMessagePanel("始めにチュートリアルを行います。<>" +
-            "まずは左アナログパッドを動かして光っているエリアまで移動してください。<>" +
+            "まずは左アナログパッドを動かして光っているエリアまで移動してください。" +
+            "L1ボタンで走ることもできます。<>" +
             "右アナログパッドで視点を操作することができます。<>" +
             "1ボタンを押すことでジャンプすることができます。<>" +
             "次はR1ボタンを押して、カメラを構えましょう。<>" +
             "そのまま2ボタンを押すことで写真を撮ることができます。<>" +
-            "他のプレイヤーを大きく正面から撮って、高得点を目指そう!");
+            "他のプレイヤーを大きく正面から撮って、高得点を目指そう!<>" +
+            "ボタンを押してゲームを開始します。<>");
 
     }
 
@@ -209,7 +215,7 @@ public class TutorialManager : GameManager
                 {
                     if (message.isOneMessage)
                     {
-                        if (phaseNum == (int)Phase.start)
+                        if (phaseNum == (int)Phase.intro)
                         {
                             Sequence barrierseq = DOTween.Sequence();
                             barrierseq.AppendInterval(3f);
@@ -222,6 +228,10 @@ public class TutorialManager : GameManager
 
                                 Instantiate(checkarea, new Vector3(0, -2.95f, 15), Quaternion.identity);
                             });
+                        }
+                        else if (phaseNum == (int)Phase.start)
+                        {
+                            SceneManager.LoadScene("SampleScene");
                         }
 
 

@@ -31,7 +31,7 @@ public class CheckArea : MonoBehaviour
         {
             GameObject.Find("TutorialManager").gameObject.GetComponent<TutorialManager>().NextPhase();
 
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         for (int i = 0; i < checks.Length; i++)//デバック用
