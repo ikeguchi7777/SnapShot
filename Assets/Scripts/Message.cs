@@ -28,10 +28,11 @@ public class Message : MonoBehaviour
     //　今見ている文字番号
     private int nowTextNum = 0;
     //　マウスクリックを促すアイコン
-    private Image clickIcon;
+    private Image clickIcon1, clickIcon2;
     //　クリックアイコンの点滅秒数
     [SerializeField]
     private float clickFlashTime = 0.2f;
+    public bool IconFlip { get; set; } = true;
     //　1回分のメッセージを表示したかどうか
     public bool isOneMessage { get; private set; } = false;
     //　メッセージをすべて表示したかどうか
@@ -43,8 +44,10 @@ public class Message : MonoBehaviour
 
     void Start()
     {
-        clickIcon = transform.Find("Panel/Image").GetComponent<Image>();
-        clickIcon.enabled = false;
+        clickIcon1 = transform.Find("Panel/Icon1").GetComponent<Image>();
+        clickIcon1.enabled = true;
+        clickIcon2 = transform.Find("Panel/Icon2").GetComponent<Image>();
+        clickIcon2.enabled = false;
         messageText = GetComponentInChildren<Text>();
         messageText.text = "";
         SetMessage(allMessage);
@@ -95,9 +98,10 @@ public class Message : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             //　クリックアイコンを点滅する時間を超えた時、反転させる
-            if (elapsedTime >= clickFlashTime)
+            if (elapsedTime >= clickFlashTime && IconFlip)
             {
-                clickIcon.enabled = !clickIcon.enabled;
+                clickIcon1.enabled = !clickIcon1.enabled;
+                clickIcon2.enabled = !clickIcon2.enabled;
                 elapsedTime = 0f;
             }
 
@@ -112,7 +116,9 @@ public class Message : MonoBehaviour
                 nowTextNum = 0;
                 messageNum++;
                 messageText.text = "";
-                clickIcon.enabled = false;
+                clickIcon1.enabled = true;
+                clickIcon2.enabled = false;
+                IconFlip = true;                
                 elapsedTime = 0f;
                 isOneMessage = false;
                 next = false;
@@ -146,6 +152,8 @@ public class Message : MonoBehaviour
     }
 
     public void Next() {
-        next = true;       
+        next = true;
+        
+
     }
 }

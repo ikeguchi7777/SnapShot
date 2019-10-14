@@ -36,7 +36,7 @@ public class CheckArea : MonoBehaviour
 
         for (int i = 0; i < checks.Length; i++)//デバック用
         {
-            Debug.Log(checks[i]);
+
         }
 
     }
@@ -46,24 +46,6 @@ public class CheckArea : MonoBehaviour
     {
         checks[other.transform.GetComponent<SnapShotPlayerController>().PlayerID] = true;
 
-       /* switch (other.transform.GetComponent<SnapShotPlayerController>().PlayerID)
-        {
-            case 1:
-                
-                break;
-
-            case 2:
-
-                break;
-
-            case 3:
-
-                break;
-
-            case 4:
-
-                break;
-        }
-        collision = other;*/
+ 
     }
 }
