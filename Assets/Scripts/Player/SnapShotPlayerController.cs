@@ -93,4 +93,18 @@ public class SnapShotPlayerController : vThirdPersonController
         freeSprintSpeed *= rate;
     }
 
+    public bool IsInViewport(Camera cam)
+    {
+        foreach (var item in point.everyPoint)
+        {
+            Vector3 view_pos = cam.WorldToViewportPoint(item.position);
+            if (!(view_pos.x < -0.0f ||
+               view_pos.x > 1.0f ||
+               view_pos.y < -0.0f ||
+               view_pos.y > 1.0f) && (Vector3.Dot(cam.transform.forward, item.position - cam.transform.position) > 0))
+                return true;
+        }
+        return false;
+    }
+
 }
