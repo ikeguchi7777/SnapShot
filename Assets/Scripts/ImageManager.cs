@@ -84,7 +84,8 @@ public class ImageManager : MonoBehaviour
 
     byte[] ReadPngFile(int playerID, int imageNumber)
     {
-        FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + playerID + "P_" + +imageNumber + ".png", FileMode.Open, FileAccess.Read);
+        FileStream fileStream = new FileStream(GameInstance.Instance.EachPicture[playerID-1][imageNumber].ID, FileMode.Open, FileAccess.Read);
+        //FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + playerID + "P_1.png", FileMode.Open, FileAccess.Read);
 
         BinaryReader bin = new BinaryReader(fileStream);
         byte[] values = bin.ReadBytes((int)bin.BaseStream.Length);
@@ -141,12 +142,13 @@ public class ImageManager : MonoBehaviour
         obj.AddComponent<Image>().sprite = SpriteFromTexture2D(playerID, imageNumber);
         obj.GetComponent<Image>().preserveAspect = true;
         obj.GetComponent<Image>().SetNativeSize();
-
+        obj.GetComponent<Image>().color = new Color(1, 1, 1, 0);
         //obj.AddComponent<SpriteRenderer>();
         //obj.GetComponent<SpriteRenderer>().sprite = SpriteFromTexture2D(playerID, photoNumber);
         //obj.transform.position = new Vector2(X, Y);
         //obj.transform.localScale = new Vector3(0.5f, 0.5f, 1);
 
+        //obj.SetActive(false);
 
         return obj;
     }

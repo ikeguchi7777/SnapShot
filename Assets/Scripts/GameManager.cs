@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         if(GameInstance.Instance.PlayerNum == 0){
             Debug.LogError("人数が正しくない");
             #if UNITY_EDITOR
-            GameInstance.Instance.PlayerNum = 1;
+            GameInstance.Instance.PlayerNum = 4;
             #else
             SceneManager.LoadScene("Title");
             #endif

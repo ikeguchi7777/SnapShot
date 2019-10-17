@@ -41,15 +41,15 @@ public class GameInstance
             EachPicture[i].Clear();
         }
         //デバック用
-        for (int i = 0; i < EachPicture.Length; i++)
+        /*for (int i = 0; i < EachPicture.Length; i++)
         {
-            for (int j = 0; j < 1 + i; j++)
+            for (int j = 0; j < 25 + i; j++)
             {
                 EachPicture[i].Add(new PictureScore(j.ToString(), 100 * j));
 
             }
 
-        }
+        }*/
 
     }
 }
