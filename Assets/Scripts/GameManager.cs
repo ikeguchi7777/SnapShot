@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         {
             for (int i= 1; i <= 4; i++)
             {
-                if (Input.GetButtonDown("Pause" + i))
+                if (Input.GetButton("Pause" + i))
                 {
                     pause.Pause(i);
                     return;
@@ -55,10 +55,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("PauseFail");
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            pause.Resume();
-        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {

@@ -2411,7 +2411,7 @@ MonoBehaviour:
   jumpTimer: 0.3
   jumpCounter: 0
   jumpForward: 3
-  jumpHeight: 4
+  jumpHeight: 5
   useRootMotion: 0
   freeWalkSpeed: 2.5
   freeRunningSpeed: 3
