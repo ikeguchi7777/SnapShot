@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: kasokuMT
+  m_Name: ItemMT
   m_Shader: {fileID: 4800000, guid: dd19378134012454cb9255b04eba0961, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _BILLBOARD_ALL_AXIS
   m_LightmapFlags: 0

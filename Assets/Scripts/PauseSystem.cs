@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 public class PauseSystem : MonoBehaviour
 {
+
+    EventSystem eventSystem;
+    StandaloneInputModule inputModule;
+    [SerializeField] GameObject panel = default;
     class RigidbodyVelocity
     {
         public Vector3 velocity;
@@ -36,6 +40,8 @@ public class PauseSystem : MonoBehaviour
         isPauseable = true;
 #endif
         enabled = false;
+        eventSystem = FindObjectOfType<EventSystem>();
+        inputModule = eventSystem.gameObject.GetComponent<StandaloneInputModule>();
     }
 
     public void Pause(int id)
@@ -43,6 +49,7 @@ public class PauseSystem : MonoBehaviour
         if (!isPauseable)
             return;
         isPauseable = false;
+        ChangeKey(id);
         Predicate<Rigidbody> rgPredicate =
             obj => !obj.IsSleeping() && Array.FindIndex(ignoreGameObjects, igobj => igobj.gameObject == obj.gameObject) < 0;
         pausingRigidbodies = Array.FindAll(GetComponentsInChildren<Rigidbody>(), rgPredicate);
@@ -70,6 +77,9 @@ public class PauseSystem : MonoBehaviour
             animator.speed = 0.0f;
         }
         isResumeable = true;
+        panel.SetActive(true);
+        eventSystem.SetSelectedGameObject(panel.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
+        Debug.Log(eventSystem.currentSelectedGameObject);
     }
 
     public void Resume()
@@ -92,5 +102,18 @@ public class PauseSystem : MonoBehaviour
             animator.speed = 1.0f;
         }
         isPauseable = true;
+        panel.SetActive(false);
+    }
+
+    public void BackToTitle()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+    }
+
+    void ChangeKey(int id)
+    {
+        inputModule.horizontalAxis = "LHorizontal" + id;
+        inputModule.verticalAxis = "LVertical" + id;
+        inputModule.submitButton = "Submit" + id;
     }
 }
