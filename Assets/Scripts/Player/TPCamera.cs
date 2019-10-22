@@ -11,6 +11,9 @@ public class TPCamera : vThirdPersonCamera
     private Transform SightPosition;
     private RawImage Screen;
     private Slider batbar;
+    private GameManager gameManager;
+    private RectTransform canvas;
+    [SerializeField] RectTransform[] pointers;
 
     protected bool isFirstPerson = false;
     public void SetId(int id)
@@ -30,7 +33,8 @@ public class TPCamera : vThirdPersonCamera
         {
             cam.rect = viewport;
         }
-
+        gameManager = FindObjectOfType<GameManager>();
+        canvas = GetComponentInChildren<Canvas>().transform as RectTransform;
     }
 
     public void SetFirstPerson(bool value)
@@ -38,7 +42,7 @@ public class TPCamera : vThirdPersonCamera
         isFirstPerson = value;
         Screen.enabled = value;
         if(value){
-            SightPosition = FindObjectOfType<GameManager>().Players[id].Sight;
+            SightPosition = gameManager.Players[id].Sight;
         }
     }
 
@@ -91,6 +95,25 @@ public class TPCamera : vThirdPersonCamera
         else
         {
             _camera.cullingMask &= ~layerMask;
+        }
+    }
+
+    public Camera GetCamera()
+    {
+        return _camera;
+    }
+
+    public void SetPlayerIcon(Vector3 view_pos,int playerID)
+    {
+        pointers[playerID].anchoredPosition = new Vector2(view_pos.x *canvas.rect.width , view_pos.y * canvas.rect.height);
+        
+    }
+
+    public void ClearPlayerIcon()
+    {
+        foreach (var item in pointers)
+        {
+            item.anchoredPosition = new Vector2(-100, -100);
         }
     }
 }

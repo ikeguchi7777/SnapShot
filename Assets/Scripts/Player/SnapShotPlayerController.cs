@@ -20,12 +20,15 @@ public class SnapShotPlayerController : vThirdPersonController
     Vector3 nextEulerAngle;
     Vector3 eulerAngle;
     Vector3 eulerVelocity;
+    TPCamera _tpCamera;
     public SmartPhoneCamera smartPhone { get; private set; }
     PlayerBodyPoint point;
     float x, y;
     public bool isCharging { get; set; } 
 
     public int PlayerID { get; set; }
+
+    public Camera currentCamera { get; private set; }
 
     void Awake()
     {
@@ -35,10 +38,20 @@ public class SnapShotPlayerController : vThirdPersonController
         point = GetComponent<PlayerBodyPoint>();
     }
 
+    public void SetTPCamera(TPCamera cam)
+    {
+        _tpCamera = cam;
+        currentCamera = _tpCamera.GetCamera();
+    }
+
     public void AimCamera(bool value)
     {
         isStrafing = value;
         Sprint(false);
+        if (value)
+            currentCamera = smartPhone._camera;
+        else
+            currentCamera = _tpCamera.GetCamera();
     }
 
     public void RotateSpine(float x,float y)
@@ -92,6 +105,28 @@ public class SnapShotPlayerController : vThirdPersonController
         freeSprintSpeed *= rate;
     }
 
-    
+    public bool IsInViewport(Camera cam)
+    {
+        foreach (var item in point.everyPoint)
+        {
+            Vector3 view_pos = cam.WorldToViewportPoint(item.position);
+            if (!(view_pos.x < -0.0f ||
+               view_pos.x > 1.0f ||
+               view_pos.y < -0.0f ||
+               view_pos.y > 1.0f) && (Vector3.Dot(cam.transform.forward, item.position - cam.transform.position) > 0))
+                return true;
+        }
+        return false;
+    }
 
+    public bool IsInViewport(Camera cam,out Vector3 view_pos)
+    {
+        view_pos = cam.WorldToViewportPoint(point.everyPoint[0].position);
+        if (!(view_pos.x < -0.0f ||
+           view_pos.x > 1.0f ||
+           view_pos.y < -0.0f ||
+           view_pos.y > 1.0f) && (Vector3.Dot(cam.transform.forward, transform.position - cam.transform.position) > 0))
+            return true;
+        return false;
+    }
 }

@@ -14,7 +14,7 @@ public class SmartPhoneCamera : MonoBehaviour
     public event BatteryEventHandler OnBatterChanged;
 
     const float MAX_BATTERY = 100.0f;
-    Camera _camera;
+    public Camera _camera { get; private set; }
     GameManager gameManager;
     public RenderTexture _panelTexture { get; private set; }
     [SerializeField]
@@ -24,7 +24,7 @@ public class SmartPhoneCamera : MonoBehaviour
 
     int photoNum = 0;
 
-    float powerConsumption = 10.0f;
+    float powerConsumption = 1.0f;
     float energy
     {
         get { return _energy; }
@@ -69,7 +69,9 @@ public class SmartPhoneCamera : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         enabled = false;
         cullingMask = _camera.cullingMask;
+        
     }
+
 
     void PowerON()
     {
@@ -113,8 +115,10 @@ public class SmartPhoneCamera : MonoBehaviour
         {
             if (i == playerID||Distance(gameManager.Players[i].gameObject,_camera.gameObject)>ScoreConfig.maxDistance)
                 continue;
-            if (_camera.fieldOfView * 2.12f < Vector3.Angle(_camera.transform.forward, gameManager.Players[i].transform.position - _camera.transform.position))
+            //if (_camera.fieldOfView * 2.12f < Vector3.Angle(_camera.transform.forward, gameManager.Players[i].transform.position - _camera.transform.position))
+            if(!gameManager.Players[i].IsInViewport(_camera))
                 continue;
+            Debug.Log("Player" + (i + 1));
             score += gameManager.Players[i].CalculateScore(_camera);
         }
         return score;

@@ -7,17 +7,28 @@ public class PlayerBodyPoint : MonoBehaviour
     [SerializeField] Transform head = default;
     [SerializeField] Transform[] hands = new Transform[2];
     [SerializeField] Transform[] legs = new Transform[2];
+    [SerializeField] Transform center = default;
     [SerializeField] LayerMask layerMask;
+
+    public Transform[] everyPoint { get; private set; }
 
     private void Awake()
     {
         enabled = false;
+        everyPoint = new Transform[6];
+        everyPoint[0] = center;
+        everyPoint[1] = hands[0];
+        everyPoint[2] = hands[1];
+        everyPoint[3] = legs[0];
+        everyPoint[4] = legs[1];
+        everyPoint[5] = head;
     }
 
     public int CalculateScore(Camera _camera)
     {
         int score = 0;
         score += GetScore(_camera, head.position, ScoreConfig.headScore);
+        score += GetScore(_camera, center.position, 1);
         foreach (var hand in hands)
         {
             score += GetScore(_camera, hand.position, ScoreConfig.headScore);
@@ -32,7 +43,7 @@ public class PlayerBodyPoint : MonoBehaviour
 
     int GetScore(Camera _camera,Vector3 pos,int rate)
     {
-        Vector3 view_pos = _camera.WorldToViewportPoint(head.position);
+        Vector3 view_pos = _camera.WorldToViewportPoint(pos);
         if (!(view_pos.x < -0.0f ||
            view_pos.x > 1.0f ||
            view_pos.y < -0.0f ||

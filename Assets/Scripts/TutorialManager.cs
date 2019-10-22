@@ -17,6 +17,10 @@ public class TutorialManager : GameManager
     [SerializeField]
     GameObject transparency;
     [SerializeField]
+    GameObject findplayer;
+    [SerializeField]
+    GameObject warp;
+    [SerializeField]
     GameObject barrier;
     [SerializeField]
     Message message;
@@ -43,6 +47,8 @@ public class TutorialManager : GameManager
         charge,
         speedup,
         transparency,
+        finplayer,
+        warp,
         end,
         start,
 
@@ -67,9 +73,11 @@ public class TutorialManager : GameManager
             "そのまま2ボタンを押すことで写真を撮ることができます。<>" +
             "チャージスポットに入っている間はカメラを充電することができます。" +
             "電池がないと写真が撮れないので気を付けよう。<>" +
-            "獲得することで一定時間ダッシュが速くなるアイテムや、<>" +
-            "透明になることができるアイテムがあります。<>" +
-            "他のプレイヤーを大きく正面から撮って、高得点を目指そう!<>" +
+            "ダッシュが速くなるアイテム「カソク」、<>" +
+            "透明になれるアイテム「トウメイ」、<>" +
+            "他のプレイヤーの場所がわかるアイテム「サーチ」、<>" +
+            "ワープすることができるアイテム「ワープ」があります。<>" +
+            "アイテムを利用して他のプレイヤーを大きく正面から撮って高得点を目指そう!<>" +
             "ボタンを押してゲームを開始します。<>");
 
     }
@@ -256,16 +264,17 @@ public class TutorialManager : GameManager
                     {
                         if (message.isOneMessage)
                         {
-                            Instantiate(speedup, new Vector3(-3, -2, 9), Quaternion.identity);
-                            Instantiate(speedup, new Vector3(-9, -2, -3), Quaternion.identity);
+                            Instantiate(speedup, new Vector3(-3, -2, 9), Quaternion.identity);                            
                             Instantiate(speedup, new Vector3(3, -2, -9), Quaternion.identity);
-                            Instantiate(speedup, new Vector3(9, -2, 3), Quaternion.identity);
 
-                            Instantiate(transparency, new Vector3(3, -2, 9), Quaternion.identity);
-                            Instantiate(transparency, new Vector3(-9, -2, 3), Quaternion.identity);
+                            Instantiate(findplayer, new Vector3(-9, -2, -3), Quaternion.identity);
+                            Instantiate(findplayer, new Vector3(9, -2, 3), Quaternion.identity);
+
+                            Instantiate(transparency, new Vector3(3, -2, 9), Quaternion.identity);                            
                             Instantiate(transparency, new Vector3(-3, -2, -9), Quaternion.identity);
-                            Instantiate(transparency, new Vector3(9, -2, -3), Quaternion.identity);
 
+                            Instantiate(warp,new Vector3(9, -2, -3), Quaternion.identity);
+                            Instantiate(warp, new Vector3(-9, -2, 3), Quaternion.identity);
 
                             NextPhase();
                         }
@@ -302,6 +311,44 @@ public class TutorialManager : GameManager
                     time += Time.deltaTime;
 
                     if (time > 10)
+                    {
+                        if (message.isOneMessage)
+                        {
+                            NextPhase();
+                        }
+                    }
+                }
+                break;
+
+            case (int)Phase.finplayer:
+                {
+                    if (message.IconFlip != false)
+                    {
+                        message.IconFlip = false;
+                    }
+
+                    time += Time.deltaTime;
+
+                    if (time > 5)
+                    {
+                        if (message.isOneMessage)
+                        {
+                            NextPhase();
+                        }
+                    }
+                }
+                break;
+
+            case (int)Phase.warp:
+                {
+                    if (message.IconFlip != false)
+                    {
+                        message.IconFlip = false;
+                    }
+
+                    time += Time.deltaTime;
+
+                    if (time > 5)
                     {
                         if (message.isOneMessage)
                         {
