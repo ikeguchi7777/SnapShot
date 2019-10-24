@@ -85,15 +85,16 @@ public class TutorialManager : GameManager
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))//デバッグ用
         {
-            Debug.Log(phaseNum);//デバッグ用
+            Debug.Log(phaseNum);
             for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
             {
 
                 // Debug.Log(Players[i].collision.transform.tag);
             }
         }
+
         switch (phaseNum)
         {
             case (int)Phase.intro:
@@ -169,8 +170,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        //if (Input.GetButtonDown(keynamelist[i].Jump))
-                        if (Input.GetButtonDown(keynamelist[0].Jump))//デバッグ
+                        if (Input.GetButtonDown(keynamelist[i].Jump))
+                        //if (Input.GetButtonDown(keynamelist[0].Jump))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -196,8 +197,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        //if (Input.GetButtonDown(keynamelist[i].AimCamera))
-                        if (Input.GetButtonDown(keynamelist[0].AimCamera))//デバッグ
+                        if (Input.GetButtonDown(keynamelist[i].AimCamera))
+                        //if (Input.GetButtonDown(keynamelist[0].AimCamera))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -223,8 +224,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        //if (Input.GetButton(keynamelist[i].AimCamera) && Input.GetButtonDown(keynamelist[i].Snap))
-                        if (Input.GetButton(keynamelist[0].AimCamera) && Input.GetButtonDown(keynamelist[0].Snap))//デバッグ
+                        if (Input.GetButton(keynamelist[i].AimCamera) && Input.GetButtonDown(keynamelist[i].Snap))
+                        //if (Input.GetButton(keynamelist[0].AimCamera) && Input.GetButtonDown(keynamelist[0].Snap))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -411,51 +412,7 @@ public class TutorialManager : GameManager
                 break;
 
             default:
-                /*
-                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                {
-                    if (Input.GetButtonDown(keynamelist[i].Snap))
-                    {
-                        checks[i] = true;
-                    }
-                }
-
-                tmp = false;
-                foreach (var item in checks)
-                {
-                    tmp |= item;
-                }
-
-                if (tmp)
-                {
-                    if (message.isOneMessage)
-                    {
-                        if (phaseNum == (int)Phase.intro)
-                        {
-                            Sequence barrierseq = DOTween.Sequence();
-                            barrierseq.AppendInterval(3f);
-                            barrierseq.OnComplete(() =>
-                            {
-                                if (barrier.activeSelf == true)
-                                {
-                                    barrier.SetActive(false);
-                                }
-
-                                Instantiate(checkarea, new Vector3(0, -2.95f, 15), Quaternion.identity);
-                            });
-                        }
-                        else if (phaseNum == (int)Phase.start)
-                        {
-                            SceneManager.LoadScene("SampleScene");
-                        }
-
-
-                        NextPhase();
-
-                    }
-                }
-                */
-
+         
                 break;
         }
 
@@ -474,10 +431,7 @@ public class TutorialManager : GameManager
         {
             checks[i] = false;
         }
-
-
-
-
+        
     }
 
 }
