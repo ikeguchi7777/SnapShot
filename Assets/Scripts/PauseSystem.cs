@@ -32,7 +32,7 @@ public class PauseSystem : MonoBehaviour
     Animator[] pausingAnimators;
 
     bool isPauseable = false;
-    bool isResumeable = false;
+    public bool isPaused { get; private set; } = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,7 +76,7 @@ public class PauseSystem : MonoBehaviour
         {
             animator.speed = 0.0f;
         }
-        isResumeable = true;
+        isPaused = true;
         panel.SetActive(true);
         eventSystem.SetSelectedGameObject(panel.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
         Debug.Log(eventSystem.currentSelectedGameObject);
@@ -84,9 +84,9 @@ public class PauseSystem : MonoBehaviour
 
     public void Resume()
     {
-        if (!isResumeable)
+        if (!isPaused)
             return;
-        isResumeable = false;
+        isPaused = false;
         for (int i = 0; i < pausingRigidbodies.Length; i++)
         {
             pausingRigidbodies[i].WakeUp();

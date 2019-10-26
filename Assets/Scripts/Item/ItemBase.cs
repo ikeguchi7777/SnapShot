@@ -6,6 +6,7 @@ public class ItemBase : MonoBehaviour
 {
     [SerializeField] private float height = 1.0f;
     [SerializeField] protected float EffectDuration = 10.0f;
+    [SerializeField] Item type;
     protected MainGameManager manager;
     float lifetime = 30.0f;
 
@@ -17,6 +18,7 @@ public class ItemBase : MonoBehaviour
     }
     public virtual void Affect(SnapShotPlayerController controller)
     {
+        manager.Affect(controller.PlayerID, EffectDuration, type);
         Destroy(gameObject);
     }
 

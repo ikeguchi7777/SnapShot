@@ -2509,6 +2509,7 @@ MonoBehaviour:
   legs:
   - {fileID: 4189541100112473914}
   - {fileID: 4189541100112535342}
+  center: {fileID: 4189541100112552780}
   layerMask:
     serializedVersion: 2
     m_Bits: 307

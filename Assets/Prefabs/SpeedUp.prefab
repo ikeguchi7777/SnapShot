@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2510162046383663643}
   - component: {fileID: 4149192697092296036}
   - component: {fileID: 4833570665755524578}
-  - component: {fileID: 6897073523129322156}
+  - component: {fileID: -3017138663343319896}
   m_Layer: 2
   m_Name: SpeedUp
   m_TagString: Item
@@ -94,7 +94,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.92
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6897073523129322156
+--- !u!114 &-3017138663343319896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,8 +103,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1619075926337732889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ee33f4a5cf609143af63e9de6442f93, type: 3}
+  m_Script: {fileID: 11500000, guid: 18b90ec540ff7f24faad6540f081d09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   height: 1
   EffectDuration: 10
+  type: 1

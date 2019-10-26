@@ -14,7 +14,7 @@ public class SmartPhoneCamera : MonoBehaviour
     public event BatteryEventHandler OnBatterChanged;
 
     const float MAX_BATTERY = 100.0f;
-    Camera _camera;
+    public Camera _camera { get; private set; }
     GameManager gameManager;
     public RenderTexture _panelTexture { get; private set; }
     [SerializeField]

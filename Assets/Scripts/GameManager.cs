@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public TPCamera[] tpCameras{get;private set;}
     public SnapShotPlayerController[] Players{get;private set;}
 
-    PauseSystem pause;
+    protected PauseSystem pause;
 
     // Start is called before the first frame update
     protected virtual void Awake()
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
             Players[i] = Instantiate(players[i],position[i],Quaternion.identity,transform);
             Players[i].PlayerID = i;
             tpCameras[i].SetId(i);
+            Players[i].SetTPCamera(tpCameras[i]);
         }
         pause = GetComponent<PauseSystem>();
     }
