@@ -62,4 +62,8 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Result");
         }
     }
+    public void Respawn(int playerID)
+    {
+        Players[playerID].transform.position = position[Random.Range(0, position.Length)];
+    }
 }

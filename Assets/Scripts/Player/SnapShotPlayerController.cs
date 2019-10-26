@@ -124,11 +124,6 @@ public class SnapShotPlayerController : vThirdPersonController
         return false;
     }
 
-    public void Respawn()
-    {
-
-    }
-
     public bool IsInViewport(Camera cam,out Vector3 view_pos)
     {
         view_pos = cam.WorldToViewportPoint(point.everyPoint[0].position);

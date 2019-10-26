@@ -101,7 +101,7 @@ public class SmartPhoneCamera : MonoBehaviour
         var path = Application.dataPath +"/Image/" + (playerID+1) + "P/" + (playerID+1) + "P_" + photoNum + ".png";
         GameInstance.Instance.EachPicture[playerID].Add(new PictureScore(path, score));
         if (gameManager.Players[playerID].respawnScore <= score)
-            gameManager.Players[playerID].Respawn();
+            gameManager.Respawn(playerID);
         photoNum++;
         using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
         {
