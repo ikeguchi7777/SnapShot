@@ -17,6 +17,7 @@ public class SnapShotPlayerController : vThirdPersonController
     [SerializeField, Tooltip("腰の可動域")]
     Vector2 SpineRange = new Vector2(30.0f, 40.0f);
     #endregion
+    public int respawnScore = 10;
     Vector3 nextEulerAngle;
     Vector3 eulerAngle;
     Vector3 eulerVelocity;
@@ -85,12 +86,21 @@ public class SnapShotPlayerController : vThirdPersonController
 
     public int CalculateScore(Camera _camera)
     {
+        if (TakeScoreLog.instance != null)
+        {
+            TakeScoreLog.instance.AddLog("Taked:Player" + PlayerID);
+        }
         return point.CalculateScore(_camera);
     }
 
     public void ChangeSpeed(float rate)
     {
         freeSprintSpeed *= rate;
+    }
+
+    public void Respawn()
+    {
+
     }
 
 }
