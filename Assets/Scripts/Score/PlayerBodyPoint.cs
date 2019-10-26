@@ -50,7 +50,10 @@ public class PlayerBodyPoint : MonoBehaviour
             Debug.DrawRay(_camera.transform.position, dir, Color.red, 1);
             if (!Physics.Raycast(_camera.transform.position, dir, dir.magnitude,layerMask))
             {
-
+                if (TakeScoreLog.instance != null)
+                {
+                    TakeScoreLog.instance.AddLog("rate:" + rate + " // CenterBonus:" + GetCenterBonus(view_pos) + " // DistanceRate:" + GetScoreofDistance(dir.magnitude));
+                }
                 return (int)((rate + GetCenterBonus(view_pos)) * GetScoreofDistance(dir.magnitude));
             }
         }

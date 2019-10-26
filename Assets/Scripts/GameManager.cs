@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     PauseSystem pause;
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         if(GameInstance.Instance.PlayerNum == 0){
             Debug.LogError("人数が正しくない");
