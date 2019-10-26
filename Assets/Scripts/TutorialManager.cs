@@ -17,6 +17,10 @@ public class TutorialManager : GameManager
     [SerializeField]
     GameObject transparency;
     [SerializeField]
+    GameObject findplayer;
+    [SerializeField]
+    GameObject warp;
+    [SerializeField]
     GameObject barrier;
     [SerializeField]
     Message message;
@@ -43,6 +47,8 @@ public class TutorialManager : GameManager
         charge,
         speedup,
         transparency,
+        finplayer,
+        warp,
         end,
         start,
 
@@ -67,9 +73,11 @@ public class TutorialManager : GameManager
             "そのまま2ボタンを押すことで写真を撮ることができます。<>" +
             "チャージスポットに入っている間はカメラを充電することができます。" +
             "電池がないと写真が撮れないので気を付けよう。<>" +
-            "獲得することで一定時間ダッシュが速くなるアイテムや、<>" +
-            "透明になることができるアイテムがあります。<>" +
-            "他のプレイヤーを大きく正面から撮って、高得点を目指そう!<>" +
+            "ダッシュが速くなるアイテム「カソク」、<>" +
+            "透明になれるアイテム「トウメイ」、<>" +
+            "他のプレイヤーの場所がわかるアイテム「サーチ」、<>" +
+            "ワープすることができるアイテム「ワープ」があります。<>" +
+            "アイテムを利用して他のプレイヤーを大きく正面から撮って高得点を目指そう!<>" +
             "ボタンを押してゲームを開始します。<>");
 
     }
@@ -77,15 +85,16 @@ public class TutorialManager : GameManager
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))//デバッグ用
         {
-            Debug.Log(phaseNum);//デバッグ用
+            Debug.Log(phaseNum);
             for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
             {
 
                 // Debug.Log(Players[i].collision.transform.tag);
             }
         }
+
         switch (phaseNum)
         {
             case (int)Phase.intro:
@@ -161,8 +170,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        //if (Input.GetButtonDown(keynamelist[i].Jump))
-                        if (Input.GetButtonDown(keynamelist[0].Jump))//デバッグ
+                        if (Input.GetButtonDown(keynamelist[i].Jump))
+                        //if (Input.GetButtonDown(keynamelist[0].Jump))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -188,8 +197,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        //if (Input.GetButtonDown(keynamelist[i].AimCamera))
-                        if (Input.GetButtonDown(keynamelist[0].AimCamera))//デバッグ
+                        if (Input.GetButtonDown(keynamelist[i].AimCamera))
+                        //if (Input.GetButtonDown(keynamelist[0].AimCamera))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -215,8 +224,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        //if (Input.GetButton(keynamelist[i].AimCamera) && Input.GetButtonDown(keynamelist[i].Snap))
-                        if (Input.GetButton(keynamelist[0].AimCamera) && Input.GetButtonDown(keynamelist[0].Snap))//デバッグ
+                        if (Input.GetButton(keynamelist[i].AimCamera) && Input.GetButtonDown(keynamelist[i].Snap))
+                        //if (Input.GetButton(keynamelist[0].AimCamera) && Input.GetButtonDown(keynamelist[0].Snap))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -256,16 +265,17 @@ public class TutorialManager : GameManager
                     {
                         if (message.isOneMessage)
                         {
-                            Instantiate(speedup, new Vector3(-3, -2, 9), Quaternion.identity);
-                            Instantiate(speedup, new Vector3(-9, -2, -3), Quaternion.identity);
+                            Instantiate(speedup, new Vector3(-3, -2, 9), Quaternion.identity);                            
                             Instantiate(speedup, new Vector3(3, -2, -9), Quaternion.identity);
-                            Instantiate(speedup, new Vector3(9, -2, 3), Quaternion.identity);
 
-                            Instantiate(transparency, new Vector3(3, -2, 9), Quaternion.identity);
-                            Instantiate(transparency, new Vector3(-9, -2, 3), Quaternion.identity);
+                            Instantiate(findplayer, new Vector3(-9, -2, -3), Quaternion.identity);
+                            Instantiate(findplayer, new Vector3(9, -2, 3), Quaternion.identity);
+
+                            Instantiate(transparency, new Vector3(3, -2, 9), Quaternion.identity);                            
                             Instantiate(transparency, new Vector3(-3, -2, -9), Quaternion.identity);
-                            Instantiate(transparency, new Vector3(9, -2, -3), Quaternion.identity);
 
+                            Instantiate(warp,new Vector3(9, -2, -3), Quaternion.identity);
+                            Instantiate(warp, new Vector3(-9, -2, 3), Quaternion.identity);
 
                             NextPhase();
                         }
@@ -302,6 +312,44 @@ public class TutorialManager : GameManager
                     time += Time.deltaTime;
 
                     if (time > 10)
+                    {
+                        if (message.isOneMessage)
+                        {
+                            NextPhase();
+                        }
+                    }
+                }
+                break;
+
+            case (int)Phase.finplayer:
+                {
+                    if (message.IconFlip != false)
+                    {
+                        message.IconFlip = false;
+                    }
+
+                    time += Time.deltaTime;
+
+                    if (time > 5)
+                    {
+                        if (message.isOneMessage)
+                        {
+                            NextPhase();
+                        }
+                    }
+                }
+                break;
+
+            case (int)Phase.warp:
+                {
+                    if (message.IconFlip != false)
+                    {
+                        message.IconFlip = false;
+                    }
+
+                    time += Time.deltaTime;
+
+                    if (time > 5)
                     {
                         if (message.isOneMessage)
                         {
@@ -364,51 +412,7 @@ public class TutorialManager : GameManager
                 break;
 
             default:
-                /*
-                for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-                {
-                    if (Input.GetButtonDown(keynamelist[i].Snap))
-                    {
-                        checks[i] = true;
-                    }
-                }
-
-                tmp = false;
-                foreach (var item in checks)
-                {
-                    tmp |= item;
-                }
-
-                if (tmp)
-                {
-                    if (message.isOneMessage)
-                    {
-                        if (phaseNum == (int)Phase.intro)
-                        {
-                            Sequence barrierseq = DOTween.Sequence();
-                            barrierseq.AppendInterval(3f);
-                            barrierseq.OnComplete(() =>
-                            {
-                                if (barrier.activeSelf == true)
-                                {
-                                    barrier.SetActive(false);
-                                }
-
-                                Instantiate(checkarea, new Vector3(0, -2.95f, 15), Quaternion.identity);
-                            });
-                        }
-                        else if (phaseNum == (int)Phase.start)
-                        {
-                            SceneManager.LoadScene("SampleScene");
-                        }
-
-
-                        NextPhase();
-
-                    }
-                }
-                */
-
+         
                 break;
         }
 
@@ -427,10 +431,7 @@ public class TutorialManager : GameManager
         {
             checks[i] = false;
         }
-
-
-
-
+        
     }
 
 }
