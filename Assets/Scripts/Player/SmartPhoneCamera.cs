@@ -100,6 +100,8 @@ public class SmartPhoneCamera : MonoBehaviour
         var buf_png = _tex.EncodeToPNG();
         var path = Application.dataPath +"/Image/" + (playerID+1) + "P/" + (playerID+1) + "P_" + photoNum + ".png";
         GameInstance.Instance.EachPicture[playerID].Add(new PictureScore(path, score));
+        if (gameManager.Players[playerID].respawnScore <= score)
+            gameManager.Respawn(playerID);
         photoNum++;
         using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
         {
@@ -111,6 +113,8 @@ public class SmartPhoneCamera : MonoBehaviour
     int CaluculateScore(int playerID)
     {
         int score = 0;
+        if (TakeScoreLog.instance != null)
+            TakeScoreLog.instance.AddLog("Take:Player" + (playerID + 1));
         for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
         {
             if (i == playerID||Distance(gameManager.Players[i].gameObject,_camera.gameObject)>ScoreConfig.maxDistance)
@@ -121,6 +125,8 @@ public class SmartPhoneCamera : MonoBehaviour
             Debug.Log("Player" + (i + 1));
             score += gameManager.Players[i].CalculateScore(_camera);
         }
+        if (TakeScoreLog.instance != null)
+            TakeScoreLog.instance.AddLog("Score:" + score);
         return score;
     }
 

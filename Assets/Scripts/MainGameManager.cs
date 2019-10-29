@@ -13,8 +13,17 @@ public enum Item
 }
 public class MainGameManager : GameManager
 {
+    [SerializeField]
+    bool isTakeScoreLog;
     float[,] duration = new float[(int)Item.MaxNum,4];
     bool[,] isenable = new bool[(int)Item.MaxNum, 4];
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (isTakeScoreLog)
+            TakeScoreLog.Make();
+    }
     public void Affect(int playerID, float effectDuration,Item itemID)
     {
         duration[(int)itemID, playerID] += effectDuration;

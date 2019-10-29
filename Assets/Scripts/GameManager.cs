@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     protected PauseSystem pause;
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         if(GameInstance.Instance.PlayerNum == 0){
             Debug.LogError("人数が正しくない");
@@ -62,5 +62,9 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Result");
         }
+    }
+    public void Respawn(int playerID)
+    {
+        Players[playerID].transform.position = position[Random.Range(0, position.Length)];
     }
 }
