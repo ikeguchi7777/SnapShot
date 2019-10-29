@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
+            Debug.Log("test");
             for (int i= 1; i <= 4; i++)
             {
                 if (Input.GetButton("Pause" + i))

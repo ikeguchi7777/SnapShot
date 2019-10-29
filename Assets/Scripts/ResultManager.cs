@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
-public class ResultController : MonoBehaviour
+public class ResultManager : MonoBehaviour
 {
 
     [SerializeField] GameObject[] ScoreBoards;
@@ -20,8 +21,11 @@ public class ResultController : MonoBehaviour
     const float REDUCTION_RATE = 1 / 3f;
 
     float waitTime = 2.0f;
+    bool end = false;
 
     [SerializeField] Font font;
+
+    KeyNameList[] keynamelist = new KeyNameList[GameInstance.Instance.PlayerNum];
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,7 @@ public class ResultController : MonoBehaviour
 
         for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
         {
+            keynamelist[i] = new KeyNameList(i);
             images[i] = new List<GameObject>();
             GameInstance.Instance.TotalScore[i] = GetTotalScore(i + 1);
 
@@ -84,7 +89,13 @@ public class ResultController : MonoBehaviour
             imageNumber = 0;
         }
 
-
+        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+        {
+            if (Input.GetButtonDown(keynamelist[i].Snap) && end)
+            {
+                SceneManager.LoadScene("Title");
+            }
+        }
     }
 
     IEnumerator Loop()
@@ -201,7 +212,8 @@ public class ResultController : MonoBehaviour
             seq.Append(ScoreBoards[i].transform.Find("Rank").gameObject.GetComponent<Text>().DOFade(1, 1.0f));
             seq.AppendInterval(2.0f);
             seq.Append(ScoreBoards[i].GetComponent<CanvasGroup>().DOFade(0, 1.0f));
-
+            seq.OnComplete(() => end = true);
+            
         }
     }
 }
