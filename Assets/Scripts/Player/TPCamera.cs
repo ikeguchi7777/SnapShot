@@ -13,7 +13,10 @@ public class TPCamera : vThirdPersonCamera
     private Slider batbar;
     private GameManager gameManager;
     private RectTransform canvas;
-    [SerializeField] RectTransform[] pointers;
+    private ItemUI first = null;
+    [SerializeField] RectTransform[] pointers=null;
+    [SerializeField] Image background=default;
+    [SerializeField] ItemUI itembase=default;
 
     protected bool isFirstPerson = false;
     public void SetId(int id)
@@ -41,9 +44,7 @@ public class TPCamera : vThirdPersonCamera
     {
         isFirstPerson = value;
         Screen.enabled = value;
-        if(value){
-            SightPosition = gameManager.Players[id].Sight;
-        }
+        background.enabled = value;
     }
 
     public void SetRenderTexture(RenderTexture texture)
@@ -51,6 +52,7 @@ public class TPCamera : vThirdPersonCamera
         Screen = GetComponentInChildren<RawImage>();
         Screen.texture = texture;
         Screen.enabled = false;
+        background.enabled = false;
     }
 
     public void SetBatteryBar(SmartPhoneCamera smartPhone)
@@ -65,12 +67,7 @@ public class TPCamera : vThirdPersonCamera
     protected override void FixedUpdate()
     {
         if (target == null || targetLookAt == null) return;
-        if (isFirstPerson)
-        {
-            transform.position = SightPosition.position;
-            transform.rotation = SightPosition.rotation;
-        }
-        else
+        if (!isFirstPerson)
             CameraMovement();
     }
 
@@ -115,5 +112,25 @@ public class TPCamera : vThirdPersonCamera
         {
             item.anchoredPosition = new Vector2(-100, -100);
         }
+    }
+
+    public ItemUI SetItemIcon(Item item)
+    {
+        var t = Instantiate(itembase, canvas);
+        first = t.Set(first);
+        t.SetSprite(item);
+        if (item == Item.Warp)
+            StartCoroutine(RemoveIconQuick(t));
+        return t;
+    }
+
+    public void RemoveIcon(ItemUI item)
+    {
+        first = item.Exit(first);
+    }
+    IEnumerator RemoveIconQuick(ItemUI item)
+    {
+        yield return new WaitForSeconds(item.duration);
+        RemoveIcon(item);
     }
 }

@@ -15,6 +15,8 @@ public class MainGameManager : GameManager
 {
     [SerializeField]
     bool isTakeScoreLog;
+    [SerializeField]
+    ItemUI ItemUI;
     float[,] duration = new float[(int)Item.MaxNum,4];
     bool[,] isenable = new bool[(int)Item.MaxNum, 4];
 
@@ -43,6 +45,7 @@ public class MainGameManager : GameManager
                     break;
                 case Item.Warp:
                     Warp(playerID);
+                    isenable[(int)itemID, playerID] = false;
                     break;
                 default:
                     Debug.Log("効果が設定されていません");
@@ -53,10 +56,11 @@ public class MainGameManager : GameManager
 
     void Warp(int playerID)
     {
-        int id = 0;
         int count = 0;
+        tpCameras[playerID].SetItemIcon(Item.Warp);
         while (count != 10)
         {
+            int id;
             do
             {
                 id = Random.Range(0, GameInstance.Instance.PlayerNum);
@@ -69,6 +73,7 @@ public class MainGameManager : GameManager
             }
             count++;
         }
+        Players[playerID].transform.position = position[Random.Range(0, position.Length)];
     }
 
     IEnumerator TransparencyCoroutine(int playerID)
@@ -79,6 +84,7 @@ public class MainGameManager : GameManager
                 continue;
             tpCameras[i].SetLayer(LayerMask.GetMask((playerID + 1) + "P"), false);
         }
+        var itemUI = tpCameras[playerID].SetItemIcon(Item.Transparency);
         yield return null;
         do
         {
@@ -92,6 +98,7 @@ public class MainGameManager : GameManager
             }
         } while (duration[(int)Item.Transparency, playerID]>0);
         isenable[(int)Item.Transparency, playerID] = false;
+        tpCameras[playerID].RemoveIcon(itemUI);
         for (int i = 0; i < tpCameras.Length; i++)
         {
             if (i == playerID)
@@ -103,6 +110,7 @@ public class MainGameManager : GameManager
     IEnumerator SpeedUpCoroutine(int playerID)
     {
         Players[playerID].ChangeSpeed(2.0f);
+        var itemUI=tpCameras[playerID].SetItemIcon(Item.SpeedUp);
         yield return null;
         do
         {
@@ -116,12 +124,14 @@ public class MainGameManager : GameManager
             }
         } while (duration[(int)Item.SpeedUp, playerID] > 0);
         Debug.Log("加速終了");
+        tpCameras[playerID].RemoveIcon(itemUI);
         isenable[(int)Item.SpeedUp, playerID] = false;
         Players[playerID].ChangeSpeed(0.5f);
     }
 
     IEnumerator FindPlayerCoroutine(int playerID)
     {
+        var itemUI = tpCameras[playerID].SetItemIcon(Item.FindPlayer);
         yield return null;
         do
         {
@@ -154,6 +164,7 @@ public class MainGameManager : GameManager
             }
         } while (duration[(int)Item.FindPlayer, playerID] > 0);
         Debug.Log("探索終了");
+        tpCameras[playerID].RemoveIcon(itemUI);
         tpCameras[playerID].ClearPlayerIcon();
         isenable[(int)Item.FindPlayer, playerID] = false;
     }
