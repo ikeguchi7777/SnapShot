@@ -84,7 +84,7 @@ public class ImageManager : MonoBehaviour
 
     byte[] ReadPngFile(int playerID, int imageNumber)
     {
-        FileStream fileStream = new FileStream(GameInstance.Instance.EachPicture[playerID-1][imageNumber].ID, FileMode.Open, FileAccess.Read);
+        FileStream fileStream = new FileStream(GameInstance.Instance.EachPicture[playerID][imageNumber].ID, FileMode.Open, FileAccess.Read);
         //FileStream fileStream = new FileStream(Application.dataPath + "/Image/" + playerID + "P/" + playerID + "P_1.png", FileMode.Open, FileAccess.Read);
 
         BinaryReader bin = new BinaryReader(fileStream);
@@ -134,9 +134,9 @@ public class ImageManager : MonoBehaviour
     public GameObject LoadImage(int playerID, int imageNumber)
     {
 
-        GameObject obj = new GameObject(playerID + "P_" + imageNumber);
+        GameObject obj = new GameObject((playerID+1) + "P_" + imageNumber);
 
-        obj.transform.parent = GameObject.Find("Canvas/" + playerID + "PPanel").transform;
+        obj.transform.parent = GameObject.Find("Canvas/" + (playerID+1) + "PPanel").transform;
         obj.AddComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
         obj.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         obj.AddComponent<Image>().sprite = SpriteFromTexture2D(playerID, imageNumber);

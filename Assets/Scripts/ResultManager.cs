@@ -21,6 +21,7 @@ public class ResultManager : MonoBehaviour
     const float REDUCTION_RATE = 1 / 3f;
 
     float waitTime = 2.0f;
+    float speed = 1.0f;
     bool end = false;
 
     [SerializeField] Font font;
@@ -35,7 +36,7 @@ public class ResultManager : MonoBehaviour
         {
             keynamelist[i] = new KeyNameList(i);
             images[i] = new List<GameObject>();
-            GameInstance.Instance.TotalScore[i] = GetTotalScore(i + 1);
+            GameInstance.Instance.TotalScore[i] = GetTotalScore(i);
 
 
             GameObject score = ScoreBoards[i].transform.Find("Score").gameObject;
@@ -47,7 +48,7 @@ public class ResultManager : MonoBehaviour
 
         for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
         {
-            GameInstance.Instance.Ranking[i] = GetRanking(i + 1);
+            GameInstance.Instance.Ranking[i] = GetRanking(i);
 
             GameObject rank = ScoreBoards[i].transform.Find("Rank").gameObject;
             rank.GetComponent<Text>().text = GameInstance.Instance.Ranking[i] + "位";
@@ -61,7 +62,7 @@ public class ResultManager : MonoBehaviour
 
                 if (GameInstance.Instance.EachPicture[j].Count > i )
                 {
-                    images[j].Add(imageManager.LoadImage(j + 1, i));
+                    images[j].Add(imageManager.LoadImage(j, i));
                 }
             }
         }
@@ -95,7 +96,15 @@ public class ResultManager : MonoBehaviour
             {
                 SceneManager.LoadScene("Title");
             }
+
+            if (Input.GetButtonDown("Pause"+(i+1)))
+            {
+                speed = 5;
+            }
+
         }
+
+        
     }
 
     IEnumerator Loop()
@@ -106,7 +115,7 @@ public class ResultManager : MonoBehaviour
 
             
             PictureDisp();
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(waitTime/speed);
             imageNumber++;
         }
     }
@@ -152,12 +161,12 @@ public class ResultManager : MonoBehaviour
 
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(obj.transform.DOScale(new Vector2(1.5f, 1.5f), 0.5f));
-        seq.Join(obj.GetComponent<Image>().DOFade(1, 0.5f));
-        seq.Append(txt.GetComponent<Text>().DOFade(1, 0.5f));
-        seq.AppendInterval(0.5f);
-        seq.Append(obj.transform.DOScale(new Vector2(REDUCTION_RATE, REDUCTION_RATE), movetime));
-        seq.Join(obj.transform.DOLocalMove(new Vector2(destX, destY), movetime));
+        seq.Append(obj.transform.DOScale(new Vector2(1.5f, 1.5f), 0.5f/speed));
+        seq.Join(obj.GetComponent<Image>().DOFade(1, 0.5f/speed));
+        seq.Append(txt.GetComponent<Text>().DOFade(1, 0.5f/speed));
+        seq.AppendInterval(0.5f/speed);
+        seq.Append(obj.transform.DOScale(new Vector2(REDUCTION_RATE, REDUCTION_RATE), movetime/speed));
+        seq.Join(obj.transform.DOLocalMove(new Vector2(destX, destY), movetime/speed));
 
         // seq.OnComplete(() => {  });
 
@@ -168,7 +177,7 @@ public class ResultManager : MonoBehaviour
 
         int score = 0;
 
-        foreach (var item in GameInstance.Instance.EachPicture[playerNum - 1])
+        foreach (var item in GameInstance.Instance.EachPicture[playerNum])
         {
             score += item.point;
         }
@@ -177,8 +186,8 @@ public class ResultManager : MonoBehaviour
 
     int GetRanking(int playeyNum)
     {
-        //Debug.Log(GameInstance.Instance.TotalScore[playeyNum - 1]);
-        int score = GameInstance.Instance.TotalScore[playeyNum - 1];
+        //Debug.Log(GameInstance.Instance.TotalScore[playeyNum]);
+        int score = GameInstance.Instance.TotalScore[playeyNum];
 
         int rank = 1;
 

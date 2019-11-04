@@ -2646,7 +2646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08032bb1086f9a4ba39724358ca710f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 2098125159}
   BGMClips:
   - {fileID: 8300000, guid: a3d7acb287307814798f1e74c3cd9ee4, type: 3}
   SEClips: []
