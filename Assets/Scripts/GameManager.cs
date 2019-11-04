@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TPCamera tpCamera = null;
     [SerializeField]
-    Vector3[] position = null;
+    protected Vector3[] position = null;
     public TPCamera[] tpCameras{get;private set;}
     public SnapShotPlayerController[] Players{get;private set;}
 

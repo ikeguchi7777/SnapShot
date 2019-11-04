@@ -85,7 +85,7 @@ public class PlayerInput : MonoBehaviour
 
     protected virtual void SprintInput()
     {
-        if (Input.GetButtonDown(keyname.Sprint))
+        if (Input.GetButton(keyname.Sprint))
             cc.Sprint(true);
         else if (Input.GetButtonUp(keyname.Sprint))
             cc.Sprint(false);
@@ -99,16 +99,21 @@ public class PlayerInput : MonoBehaviour
 
     protected virtual void AimCameraInput()
     {
-        if (Input.GetButtonDown(keyname.AimCamera))
+        if (Input.GetButtonDown(keyname.AimCamera)&&cc.isGrounded)
         {
             cc.AimCamera(true);
-            tpCamera.SetFirstPerson(true);
+            //tpCamera.SetFirstPerson(true);
         }
-        else if (Input.GetButtonUp(keyname.AimCamera))
+        else if (Input.GetButtonUp(keyname.AimCamera)||!cc.isGrounded)
         {
             cc.AimCamera(false);
             tpCamera.SetFirstPerson(false);
         }
+    }
+
+    public void ChangeFirstPerson(bool value)
+    {
+        tpCamera.SetFirstPerson(value);
     }
 
     protected virtual void SnapInput()

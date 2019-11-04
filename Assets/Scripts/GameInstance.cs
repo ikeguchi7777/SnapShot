@@ -34,7 +34,7 @@ public class GameInstance
     }
 
     public void init(){
-        PlayerNum = 4;
+        PlayerNum = 2;
 
         for (int i = 0; i < EachPicture.Length; i++)
         {

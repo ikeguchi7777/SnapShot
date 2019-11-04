@@ -5,11 +5,17 @@ using UnityEngine.Rendering;
 using UniRx.Async;
 using System.IO;
 
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.Threading;
+using Graphics = System.Drawing.Graphics;
+using System.Threading.Tasks;
 
 public delegate void ChangeBatteryUI(bool IO);
 public class SmartPhoneCamera : MonoBehaviour
 {
-
+    
     public delegate void BatteryEventHandler(float value);
     public event BatteryEventHandler OnBatterChanged;
 
@@ -94,19 +100,15 @@ public class SmartPhoneCamera : MonoBehaviour
         var _tex = new Texture2D(width, height,TextureFormat.RGBA32,false);
         var request = AsyncGPUReadback.Request(_panelTexture);
         await UniTask.WaitUntil(() => request.done == true);
-        var buffer = request.GetData<Color32>();
-        _tex.LoadRawTextureData(buffer);
-        _tex.Apply();
-        var buf_png = _tex.EncodeToPNG();
+        var buffer = request.GetData<byte>();
         var path = Application.dataPath +"/Image/" + (playerID+1) + "P/" + (playerID+1) + "P_" + photoNum + ".png";
         GameInstance.Instance.EachPicture[playerID].Add(new PictureScore(path, score));
         if (gameManager.Players[playerID].respawnScore <= score)
             gameManager.Respawn(playerID);
         photoNum++;
-        using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
-        {
-            await fs.WriteAsync(buf_png, 0, buf_png.Length);
-        }
+        Task task = Task.Run(() => {
+            test(path, buffer.ToArray());
+        });
         Debug.Log("Saved");
     }
 
@@ -168,5 +170,29 @@ public class SmartPhoneCamera : MonoBehaviour
         }
         energy = Mathf.Clamp(energy + value, 0.0f, MAX_BATTERY);
 
+    }
+
+    public void test(string path,byte[] raw)
+    {
+        int length = width * height;
+        for (int i = 0; i < length; i++)
+        {
+            byte tmp = raw[i * 4];
+            raw[i * 4] = raw[i * 4 + 2];
+            raw[i * 4 + 2] = tmp;
+        }
+
+        Bitmap bitmap = new Bitmap(width, height);
+        BitmapData _data = bitmap.LockBits(
+            new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+            ImageLockMode.ReadWrite,
+            PixelFormat.Format32bppArgb);
+
+        
+        Marshal.Copy(raw, 0, _data.Scan0, raw.Length);
+
+        bitmap.UnlockBits(_data);
+        bitmap.RotateFlip(RotateFlipType.Rotate180FlipX);
+        bitmap.Save(path,ImageFormat.Png);
     }
 }
