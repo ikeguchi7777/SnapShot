@@ -113,6 +113,7 @@ public class PlayerInput : MonoBehaviour
 
     public void ChangeFirstPerson(bool value)
     {
+        if(value==cc.isStrafing)
         tpCamera.SetFirstPerson(value);
     }
 

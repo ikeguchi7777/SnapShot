@@ -15,8 +15,10 @@ public class TPCamera : vThirdPersonCamera
     private RectTransform canvas;
     private ItemUI first = null;
     [SerializeField] RectTransform[] pointers=null;
-    [SerializeField] Image background=default;
+    [SerializeField] Image[] backgrounds=null;
     [SerializeField] ItemUI itembase=default;
+    [SerializeField] Sprite[] Battery = null;
+    [SerializeField] Image BatteryBackground;
 
     protected bool isFirstPerson = false;
     public void SetId(int id)
@@ -38,13 +40,17 @@ public class TPCamera : vThirdPersonCamera
         }
         gameManager = FindObjectOfType<GameManager>();
         canvas = GetComponentInChildren<Canvas>().transform as RectTransform;
+        BatteryBackground.sprite = Battery[id];
     }
 
     public void SetFirstPerson(bool value)
     {
         isFirstPerson = value;
         Screen.enabled = value;
-        background.enabled = value;
+        foreach (var item in backgrounds)
+        {
+            item.enabled = value;
+        }
     }
 
     public void SetRenderTexture(RenderTexture texture)
@@ -52,7 +58,10 @@ public class TPCamera : vThirdPersonCamera
         Screen = GetComponentInChildren<RawImage>();
         Screen.texture = texture;
         Screen.enabled = false;
-        background.enabled = false;
+        foreach (var item in backgrounds)
+        {
+            item.enabled = false;
+        }
     }
 
     public void SetBatteryBar(SmartPhoneCamera smartPhone)
@@ -76,10 +85,12 @@ public class TPCamera : vThirdPersonCamera
         if (IO)
         {
             Screen.color = Color.white;
+            backgrounds[2].gameObject.SetActive(false);
         }
         else
         {
-            Screen.color = Color.black;
+            Screen.color = Color.grey;
+            backgrounds[2].gameObject.SetActive(true);
         }
     }
 

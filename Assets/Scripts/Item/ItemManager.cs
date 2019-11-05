@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] NavMeshSamplePosition[] samplePositions;
-    [SerializeField] ItemBase[] items;
+    [SerializeField] ItemBase[] items=null;
     Coroutine coroutine;
     [SerializeField] float interval = 5.0f;
     [SerializeField] float time_range = 1.0f;

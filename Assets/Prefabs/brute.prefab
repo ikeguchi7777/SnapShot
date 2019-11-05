@@ -3252,8 +3252,8 @@ MonoBehaviour:
   direction: 0
   verticalVelocity: 0
   velocity: 0
-  Sight: {fileID: 5244736807811168638, guid: 3832a5eb3265db741bec6c5d8a61b4d1, type: 3}
-  Spine: {fileID: 4189541100112552780, guid: 3832a5eb3265db741bec6c5d8a61b4d1, type: 3}
+  Sight: {fileID: 2242029737416259490}
+  Spine: {fileID: 373208128782474081}
   SpineSpeed: 100
   SpineRange: {x: 30, y: 40}
   respawnScore: 10
