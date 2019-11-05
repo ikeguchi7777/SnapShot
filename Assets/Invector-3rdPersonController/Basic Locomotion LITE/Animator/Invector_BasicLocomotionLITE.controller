@@ -84,7 +84,7 @@ AnimatorController:
     m_Motions:
     - serializedVersion: 2
       m_State: {fileID: 110271304}
-      m_Motion: {fileID: -1194073538159640480, guid: b2d9a972eda8bb343a15969cc4308177,
+      m_Motion: {fileID: -2463781497245029270, guid: eaf525339014e724c9062999cfaafb0f,
         type: 3}
     m_Behaviours:
     - m_State: {fileID: 110255802}
@@ -8575,12 +8575,12 @@ AnimatorStateMachine:
   m_StateMachineTransitions:
   - first: {fileID: 0}
     second: []
-  - first: {fileID: 110718853}
-    second:
-    - {fileID: 110969150}
   - first: {fileID: 110762520}
     second:
     - {fileID: 110921692}
+  - first: {fileID: 110718853}
+    second:
+    - {fileID: 110969150}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -528, y: -204, z: 0}
   m_EntryPosition: {x: -528, y: -168, z: 0}
@@ -8640,7 +8640,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 110786044}
-    m_Position: {x: -300, y: 24, z: 0}
+    m_Position: {x: -300, y: 20, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 110777022}
     m_Position: {x: -300, y: -120, z: 0}

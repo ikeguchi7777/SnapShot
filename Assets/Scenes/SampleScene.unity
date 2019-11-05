@@ -7020,7 +7020,7 @@ PrefabInstance:
     - target: {fileID: 6098528096757415851, guid: 1d10ba1da68a47346b8a952f1bec651d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6098528096757415851, guid: 1d10ba1da68a47346b8a952f1bec651d,
         type: 3}
@@ -10178,9 +10178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - {fileID: 175072699372109921, guid: fc95c1b3c906d1c47b142d1704f34371, type: 3}
+  - {fileID: 6655506547986656170, guid: d3563d41abf1d8b44b7102dda4ca6738, type: 3}
   - {fileID: 468379612584989454, guid: 4d925e42f51f64744aa868b5c1611de0, type: 3}
   - {fileID: 5272782107915356248, guid: d35b4c7f76e6fb045ac9b0e96a0433f4, type: 3}
+  - {fileID: 2483006028335353944, guid: d5ee9e8a4415390448a93cc837f0d488, type: 3}
+  - {fileID: 2483006028335353944, guid: d5ee9e8a4415390448a93cc837f0d488, type: 3}
   - {fileID: 2483006028335353944, guid: d5ee9e8a4415390448a93cc837f0d488, type: 3}
   tpCamera: {fileID: 7191792954688477316, guid: 5468e5940ca16ef41b8b626ed057d552,
     type: 3}
@@ -10191,6 +10193,7 @@ MonoBehaviour:
   - {x: 127.797, y: 8.94, z: 28.03}
   isTakeScoreLog: 1
   ItemUI: {fileID: 4347581341629711582, guid: 15675ccc749362045aea22d7562af8bc, type: 3}
+  time: 0
   Timer: 300
 --- !u!1001 &984984484
 PrefabInstance:
