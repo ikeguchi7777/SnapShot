@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum Item
@@ -19,6 +20,8 @@ public class MainGameManager : GameManager
     ItemUI ItemUI;
     float[,] duration = new float[(int)Item.MaxNum,4];
     bool[,] isenable = new bool[(int)Item.MaxNum, 4];
+    [SerializeField]
+    float Timer = 300;
 
     protected override void Awake()
     {
@@ -171,8 +174,9 @@ public class MainGameManager : GameManager
     protected override void Update()
     {
         base.Update();
-        if (Input.GetKeyDown(KeyCode.T)){
-            Affect(0,10,Item.Transparency);
-        }
+        if (!pause.isPaused)
+            Timer -= Time.deltaTime;
+        if (Timer < 0.0f)
+            SceneManager.LoadScene("Result");
     }
 }

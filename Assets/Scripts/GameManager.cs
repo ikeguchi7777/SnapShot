@@ -57,11 +57,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("PauseFail");
         }
 
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene("Result");
-        }
     }
     public void Respawn(int playerID)
     {
