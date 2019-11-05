@@ -30,7 +30,10 @@ public class SmartPhoneCamera : MonoBehaviour
 
     int photoNum = 0;
 
-    float powerConsumption = 1.0f;
+    const int border = 10;
+
+    float powerConsumption = 2.0f;
+    float photoConsume = 5.0f;
     float energy
     {
         get { return _energy; }
@@ -41,17 +44,18 @@ public class SmartPhoneCamera : MonoBehaviour
         }
     }
     float _energy = 100.0f;
-    Coroutine consumingRoutine;
 
     bool _useable = true;
+    bool _isPowerOn = true;
     public bool Useable
     {
         get { return _useable; }
         set
         {
-            if (value != _useable)
+            if (value != _isPowerOn)
             {
                 _useable = value;
+                _isPowerOn = value;
                 if (value)
                     PowerON();
                 else
@@ -95,6 +99,9 @@ public class SmartPhoneCamera : MonoBehaviour
 
     public async void TakePhoto(int playerID)
     {
+        if (!gameManager.isTakeablePhoto)
+            return;
+        _useable = false;
         var score = CaluculateScore(playerID);
         Debug.Log("Score:"+score);
         var _tex = new Texture2D(width, height,TextureFormat.RGBA32,false);
@@ -103,13 +110,17 @@ public class SmartPhoneCamera : MonoBehaviour
         var buffer = request.GetData<byte>();
         var path = Application.dataPath +"/Image/" + (playerID+1) + "P/" + (playerID+1) + "P_" + photoNum + ".png";
         GameInstance.Instance.EachPicture[playerID].Add(new PictureScore(path, score));
-        if (gameManager.Players[playerID].respawnScore <= score)
-            gameManager.Respawn(playerID);
+        if (border <= score)
+            (gameManager as MainGameManager).Affect(playerID, 5.0f, Item.Transparency);
         photoNum++;
         Task task = Task.Run(() => {
             test(path, buffer.ToArray());
         });
         Debug.Log("Saved");
+        ConsumeBattery(photoConsume);
+        await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f), ignoreTimeScale: false);
+        if (energy > 0.0f)
+            _useable = true;
     }
 
     int CaluculateScore(int playerID)
@@ -125,7 +136,10 @@ public class SmartPhoneCamera : MonoBehaviour
             if(!gameManager.Players[i].IsInViewport(_camera))
                 continue;
             Debug.Log("Player" + (i + 1));
-            score += gameManager.Players[i].CalculateScore(_camera);
+            int t = gameManager.Players[i].CalculateScore(_camera);
+            if (t >= border)
+                (gameManager as MainGameManager).Affect(i, 5.0f, Item.Transparency);
+            score += t;
         }
         if (TakeScoreLog.instance != null)
             TakeScoreLog.instance.AddLog("Score:" + score);
@@ -139,16 +153,13 @@ public class SmartPhoneCamera : MonoBehaviour
 
     public bool ConsumeBattery(float consumption)
     {
-        if (energy - consumption < 0.0f)
-        {
-            return false;
-        }
         energy -= consumption;
-        if (energy == 0.0f)
+        if (energy <= 0.0f)
         {
+            energy = 0.0f;
             Useable = false;
         }
-        return true;
+        return Useable;
     }
 
     public bool ConsumeStandbyPower(float dtime)

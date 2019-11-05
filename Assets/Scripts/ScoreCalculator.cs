@@ -6,7 +6,7 @@ public class ScoreCalculator : MonoBehaviour
 {
 
     //PlayerController playerController;
-    Camera camera;
+    new Camera camera;
     //GameObject[] Enemy;
 
     public float distanceScore { get; private set; } = 0;

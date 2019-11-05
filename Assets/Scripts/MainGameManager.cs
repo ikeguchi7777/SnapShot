@@ -18,6 +18,8 @@ public class MainGameManager : GameManager
     bool isTakeScoreLog;
     [SerializeField]
     ItemUI ItemUI;
+    [SerializeField]
+    int time = 0;
     float[,] duration = new float[(int)Item.MaxNum,4];
     bool[,] isenable = new bool[(int)Item.MaxNum, 4];
     [SerializeField]
@@ -28,6 +30,7 @@ public class MainGameManager : GameManager
         base.Awake();
         if (isTakeScoreLog)
             TakeScoreLog.Make();
+        isTakeablePhoto = true;
     }
     public void Affect(int playerID, float effectDuration,Item itemID)
     {

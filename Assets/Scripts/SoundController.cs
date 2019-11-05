@@ -11,7 +11,7 @@ public class SoundController : MonoBehaviour
     }
 
     [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip[] BGMClips, SEClips;
+    [SerializeField] AudioClip[] BGMClips=null, SEClips=null;
 
     private void Awake()
     {

@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     protected PauseSystem pause;
 
+    public bool isTakeablePhoto { get; protected set; } = false;
+
     // Start is called before the first frame update
     protected virtual void Awake()
     {
