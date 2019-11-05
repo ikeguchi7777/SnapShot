@@ -82,9 +82,10 @@ public class TutorialManager : GameManager
 
     }
 
-    void Update()
+    protected override void Update()
     {
 
+        base.Update();
         if (Input.GetKeyDown(KeyCode.D))//デバッグ用
         {
             Debug.Log(phaseNum);
@@ -94,6 +95,8 @@ public class TutorialManager : GameManager
                 // Debug.Log(Players[i].collision.transform.tag);
             }
         }
+
+      
 
         switch (phaseNum)
         {
@@ -170,8 +173,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        if (Input.GetButtonDown(keynamelist[i].Jump))
-                        //if (Input.GetButtonDown(keynamelist[0].Jump))//デバッグ
+                        //if (Input.GetButtonDown(keynamelist[i].Jump))
+                        if (Input.GetButtonDown(keynamelist[0].Jump))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -197,8 +200,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        if (Input.GetButtonDown(keynamelist[i].AimCamera))
-                        //if (Input.GetButtonDown(keynamelist[0].AimCamera))//デバッグ
+                        //if (Input.GetButtonDown(keynamelist[i].AimCamera))
+                        if (Input.GetButtonDown(keynamelist[0].AimCamera))//デバッグ
                         {
                             checks[i] = true;
                         }
@@ -224,8 +227,8 @@ public class TutorialManager : GameManager
                 {
                     for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
                     {
-                        if (Input.GetButton(keynamelist[i].AimCamera) && Input.GetButtonDown(keynamelist[i].Snap))
-                        //if (Input.GetButton(keynamelist[0].AimCamera) && Input.GetButtonDown(keynamelist[0].Snap))//デバッグ
+                        //if (Input.GetButton(keynamelist[i].AimCamera) && Input.GetButtonDown(keynamelist[i].Snap))
+                        if (Input.GetButton(keynamelist[0].AimCamera) && Input.GetButtonDown(keynamelist[0].Snap))//デバッグ
                         {
                             checks[i] = true;
                         }
