@@ -10,6 +10,7 @@ public class ResultManager : MonoBehaviour
 
     [SerializeField] GameObject[] ScoreBoards;
     [SerializeField] GameObject AnnouncePanel;
+    [SerializeField] Sprite BackGroundPanel;
 
     ImageManager imageManager = new ImageManager();
 
@@ -99,7 +100,7 @@ public class ResultManager : MonoBehaviour
 
             if (Input.GetButtonDown("Pause"+(i+1)))
             {
-                speed = 5;
+                speed = 20;
             }
 
         }
@@ -132,6 +133,16 @@ public class ResultManager : MonoBehaviour
                 //images[i].Add(imageManager.LoadImage(i + 1, imageNumber));
                 //images[i][imageNumber - 1].SetActive(true);
 
+                GameObject background = new GameObject("background");
+
+                background.transform.parent = GameObject.Find("Canvas/" + (i + 1) + "PPanel/" + (i + 1) + "P_" + imageNumber).transform;
+                background.AddComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+                background.GetComponent<RectTransform>().sizeDelta = new Vector3(900, 400, 1);
+                background.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                background.AddComponent<Image>().sprite = BackGroundPanel;
+                background.GetComponent<Image>().color = new Color(1,1,1,0);
+
+
                 GameObject txt = new GameObject((i + 1) + "P_" + imageNumber  + "point");
 
                 txt.transform.parent = GameObject.Find("Canvas/" + (i + 1) + "PPanel/" + (i + 1) + "P_" + imageNumber).transform;
@@ -145,17 +156,20 @@ public class ResultManager : MonoBehaviour
                 txt.GetComponent<Text>().text = GameInstance.Instance.EachPicture[i][imageNumber].point + "点";
 
                 txt.GetComponent<Text>().color = new Color(0, 0, 0, 0);
+
+                //txt.AddComponent<Outline>().effectColor = new Color(1,1,1,1);
+
                 //txt.GetComponent<Text>().resizeTextForBestFit = true;
 
-
-                Move(images[i][imageNumber], txt, ((imageNumber) % IMAGE_X) * 380 + (-760), ((imageNumber) / IMAGE_X % IMAGE_Y) * (-200) + 400, 0.5f);
+                
+                Move(images[i][imageNumber], txt,background, ((imageNumber) % IMAGE_X) * 380 + (-760), ((imageNumber) / IMAGE_X % IMAGE_Y) * (-200) + 400, 0.5f);
 
             }
         }
 
     }
 
-    void Move(GameObject obj, GameObject txt, float destX, float destY, float movetime)
+    void Move(GameObject obj, GameObject txt, GameObject background, float destX, float destY, float movetime)
     {
 
 
@@ -164,6 +178,9 @@ public class ResultManager : MonoBehaviour
         seq.Append(obj.transform.DOScale(new Vector2(1.5f, 1.5f), 0.5f/speed));
         seq.Join(obj.GetComponent<Image>().DOFade(1, 0.5f/speed));
         seq.Append(txt.GetComponent<Text>().DOFade(1, 0.5f/speed));
+        seq.Join(background.GetComponent<Image>().DOFade(0.5f, 0.5f / speed));
+        //
+        //seq.Join(txt.GetComponent<Outline>().DOColor(new Color(1, 1, 1, 1), 0.5f / speed));
         seq.AppendInterval(0.5f/speed);
         seq.Append(obj.transform.DOScale(new Vector2(REDUCTION_RATE, REDUCTION_RATE), movetime/speed));
         seq.Join(obj.transform.DOLocalMove(new Vector2(destX, destY), movetime/speed));
