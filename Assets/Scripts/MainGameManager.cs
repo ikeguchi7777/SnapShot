@@ -181,5 +181,11 @@ public class MainGameManager : GameManager
             Timer -= Time.deltaTime;
         if (Timer < 0.0f)
             SceneManager.LoadScene("Result");
+
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Result");
+        }
     }
 }
