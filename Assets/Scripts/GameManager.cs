@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     protected PauseSystem pause;
 
+    public bool isTakeablePhoto { get; protected set; } = false;
+
     // Start is called before the first frame update
     protected virtual void Awake()
     {
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
         {
             tpCameras[i] = Instantiate(tpCamera,transform);
-            Players[i] = Instantiate(players[i],position[i],Quaternion.identity,transform);
+            Players[i] = Instantiate(players[Random.Range(0,players.Length)],position[i],Quaternion.identity,transform);
             Players[i].PlayerID = i;
             tpCameras[i].SetId(i);
             Players[i].SetTPCamera(tpCameras[i]);

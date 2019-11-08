@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangeLayer : MonoBehaviour
 {
-    [SerializeField] GameObject[] gameObjects;
+    [SerializeField] GameObject[] gameObjects=null;
 
     public void ChangeObjectLayer(int PlayerID)
     {
