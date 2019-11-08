@@ -109,6 +109,8 @@ public class SmartPhoneCamera : MonoBehaviour
         await UniTask.WaitUntil(() => request.done == true);
         var buffer = request.GetData<byte>();
         var path = Application.dataPath +"/Image/" + (playerID+1) + "P/" + (playerID+1) + "P_" + photoNum + ".png";
+        if (TakeScoreLog.instance != null)
+            TakeScoreLog.instance.AddLog("path:" + path);
         GameInstance.Instance.EachPicture[playerID].Add(new PictureScore(path, score));
         if (border <= score)
             (gameManager as MainGameManager).Affect(playerID, 5.0f, Item.Transparency);
@@ -142,7 +144,9 @@ public class SmartPhoneCamera : MonoBehaviour
             score += t;
         }
         if (TakeScoreLog.instance != null)
+        {
             TakeScoreLog.instance.AddLog("Score:" + score);
+        }
         return score;
     }
 
