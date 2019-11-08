@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dcbcbcd79c002f74196699920c30cf3c
+guid: 7868058db1623114888b3236b882894e
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
@@ -40,10 +40,10 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -80,7 +80,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
