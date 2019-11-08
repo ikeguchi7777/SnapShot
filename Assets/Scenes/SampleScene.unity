@@ -74,8 +74,8 @@ LightmapSettings:
     m_MixedBakeMode: 2
     m_BakeBackend: 2
     m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
-    m_PVRSampleCount: 500
+    m_PVRDirectSampleCount: 64
+    m_PVRSampleCount: 1000
     m_PVRBounces: 2
     m_PVREnvironmentSampleCount: 500
     m_PVREnvironmentReferencePointCount: 2048
@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
+    agentSlope: 8.9
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -643,12 +643,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - {fileID: 6655506547986656170, guid: d3563d41abf1d8b44b7102dda4ca6738, type: 3}
+  - {fileID: 175072699372109921, guid: fc95c1b3c906d1c47b142d1704f34371, type: 3}
   - {fileID: 468379612584989454, guid: 4d925e42f51f64744aa868b5c1611de0, type: 3}
   - {fileID: 5272782107915356248, guid: d35b4c7f76e6fb045ac9b0e96a0433f4, type: 3}
   - {fileID: 2483006028335353944, guid: d5ee9e8a4415390448a93cc837f0d488, type: 3}
-  - {fileID: 2483006028335353944, guid: d5ee9e8a4415390448a93cc837f0d488, type: 3}
-  - {fileID: 2483006028335353944, guid: d5ee9e8a4415390448a93cc837f0d488, type: 3}
+  - {fileID: 3067867096910073256, guid: 35aa452b87d2dfd438dc463e5f0243dd, type: 3}
+  - {fileID: 6655506547986656170, guid: d3563d41abf1d8b44b7102dda4ca6738, type: 3}
   tpCamera: {fileID: 7191792954688477316, guid: 5468e5940ca16ef41b8b626ed057d552,
     type: 3}
   position:
@@ -905,11 +905,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: stage_fix (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6876319258704050112, guid: b0ce49162f85eab43a51340609da1d14,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7581473754428835283, guid: b0ce49162f85eab43a51340609da1d14,
         type: 3}
