@@ -96,7 +96,10 @@ public class TutorialManager : GameManager
             }
         }
 
-      
+        if (Input.GetButtonDown("Skip"))
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
 
         switch (phaseNum)
         {
