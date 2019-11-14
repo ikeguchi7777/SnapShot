@@ -32,6 +32,40 @@ public class MainGameManager : GameManager
             TakeScoreLog.Make();
         isTakeablePhoto = true;
     }
+
+    protected override void SpawnPlayers()
+    {
+        tpCameras = new TPCamera[GameInstance.Instance.PlayerNum];
+        Players = new SnapShotPlayerController[GameInstance.Instance.PlayerNum];
+        var ids = GetComb(players.Length, GameInstance.Instance.PlayerNum);
+        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+        {
+            tpCameras[i] = Instantiate(tpCamera, transform);
+            Players[i] = Instantiate(players[ids[i]], position[i], Quaternion.identity, transform);
+            Players[i].PlayerID = i;
+            tpCameras[i].SetId(i);
+            Players[i].SetTPCamera(tpCameras[i]);
+            
+        }
+    }
+
+    int[] GetComb(int num,int length)
+    {
+        if (length > num)
+            return null;
+        int[] ans = new int[length];
+        for (int i = 0; i < length; i++)
+        {
+            ans[i] = Random.Range(0, num - i);
+            for (int j = 0; j < i; j++)
+            {
+                if (ans[i] >= ans[j])
+                    ans[i]++;
+            }
+        }
+        return ans;
+    }
+
     public void Affect(int playerID, float effectDuration,Item itemID)
     {
         duration[(int)itemID, playerID] += effectDuration;
