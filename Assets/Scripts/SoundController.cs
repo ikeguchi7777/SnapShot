@@ -21,16 +21,10 @@ public class SoundController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //audioSource.PlayOneShot(BGMClips[0]);
-        //audioSource.loop = true;
-        //audioSource.PlayScheduled(AudioSettings.dspTime + BGMClips[0].length);
-
+        audioSource.clip = BGMClips[0];
+        PlayBGM();
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 
 
     public void PlaySE(Sound num)
@@ -40,7 +34,6 @@ public class SoundController : MonoBehaviour
 
     public void PlayBGM()
     {
-        // audioSource.loop = true;
         audioSource.Play();
     }
 }
