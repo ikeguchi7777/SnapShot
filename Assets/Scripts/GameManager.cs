@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    SnapShotPlayerController[] players = null;
+    protected SnapShotPlayerController[] players = null;
     [SerializeField]
-    TPCamera tpCamera = null;
+    protected TPCamera tpCamera = null;
     [SerializeField]
     protected Vector3[] position = null;
-    public TPCamera[] tpCameras{get;private set;}
-    public SnapShotPlayerController[] Players{get;private set;}
+    public TPCamera[] tpCameras{get;protected set;}
+    public SnapShotPlayerController[] Players{get;protected set;}
 
     protected PauseSystem pause;
 
@@ -29,16 +29,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Title");
             #endif
         }
-        tpCameras = new TPCamera[GameInstance.Instance.PlayerNum];
-        Players = new SnapShotPlayerController[GameInstance.Instance.PlayerNum];
-        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
-        {
-            tpCameras[i] = Instantiate(tpCamera,transform);
-            Players[i] = Instantiate(players[Random.Range(0,players.Length)],position[i],Quaternion.identity,transform);
-            Players[i].PlayerID = i;
-            tpCameras[i].SetId(i);
-            Players[i].SetTPCamera(tpCameras[i]);
-        }
+        SpawnPlayers();
         pause = GetComponent<PauseSystem>();
     }
 
@@ -47,7 +38,6 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
-            Debug.Log("test");
             for (int i= 1; i <= 4; i++)
             {
                 if (Input.GetButton("Pause" + i))
@@ -59,6 +49,20 @@ public class GameManager : MonoBehaviour
             Debug.LogError("PauseFail");
         }
 
+    }
+
+    protected virtual void SpawnPlayers()
+    {
+        tpCameras = new TPCamera[GameInstance.Instance.PlayerNum];
+        Players = new SnapShotPlayerController[GameInstance.Instance.PlayerNum];
+        for (int i = 0; i < GameInstance.Instance.PlayerNum; i++)
+        {
+            tpCameras[i] = Instantiate(tpCamera, transform);
+            Players[i] = Instantiate(players[i], position[i], Quaternion.identity, transform);
+            Players[i].PlayerID = i;
+            tpCameras[i].SetId(i);
+            Players[i].SetTPCamera(tpCameras[i]);
+        }
     }
     public void Respawn(int playerID)
     {
