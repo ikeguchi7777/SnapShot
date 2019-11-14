@@ -28,6 +28,8 @@ public class SnapShotPlayerController : vThirdPersonController
 
     public int PlayerID { get; set; }
 
+    public bool isInWater { get; set; }
+
     public Camera currentCamera { get; private set; }
 
     void Awake()
@@ -132,5 +134,11 @@ public class SnapShotPlayerController : vThirdPersonController
            view_pos.y > 1.0f) && (Vector3.Dot(cam.transform.forward, transform.position - cam.transform.position) > 0))
             return true;
         return false;
+    }
+
+    public void ChangeWaterState(bool inWater)
+    {
+        isInWater = inWater;
+        Sprint(false);
     }
 }
