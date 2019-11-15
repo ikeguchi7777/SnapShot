@@ -5702,6 +5702,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6876319258704050112, guid: b0ce49162f85eab43a51340609da1d14,
+        type: 3}
+      propertyPath: m_Name
+      value: stage_fix (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876319258704050112, guid: b0ce49162f85eab43a51340609da1d14,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442549716796668857, guid: b0ce49162f85eab43a51340609da1d14,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6098528096757415851, guid: 1d10ba1da68a47346b8a952f1bec651d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5773,21 +5788,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7089173932618597926, guid: 1d10ba1da68a47346b8a952f1bec651d,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6876319258704050112, guid: b0ce49162f85eab43a51340609da1d14,
-        type: 3}
-      propertyPath: m_Name
-      value: stage_fix (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6876319258704050112, guid: b0ce49162f85eab43a51340609da1d14,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8442549716796668857, guid: b0ce49162f85eab43a51340609da1d14,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -15320,6 +15320,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Lightmapping
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2594488583786011478, guid: b0ce49162f85eab43a51340609da1d14,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2717745903109708781, guid: b0ce49162f85eab43a51340609da1d14,
         type: 3}
