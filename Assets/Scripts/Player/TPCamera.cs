@@ -14,6 +14,7 @@ public class TPCamera : vThirdPersonCamera
     private GameManager gameManager;
     private RectTransform canvas;
     private ItemUI first = null;
+    Camera smCamera;
     [SerializeField] RectTransform[] pointers=null;
     [SerializeField] Image[] backgrounds=null;
     [SerializeField] ItemUI itembase=default;
@@ -64,6 +65,11 @@ public class TPCamera : vThirdPersonCamera
         }
     }
 
+    public void SetPhoneCamera(Camera cam)
+    {
+        smCamera = cam;
+    }
+
     public void SetBatteryBar(SmartPhoneCamera smartPhone)
     {
         batbar = GetComponentInChildren<Slider>();
@@ -98,10 +104,12 @@ public class TPCamera : vThirdPersonCamera
     {
         if (isSet)
         {
+            smCamera.cullingMask |= layerMask;
             _camera.cullingMask |= layerMask;
         }
         else
         {
+            smCamera.cullingMask &= ~layerMask;
             _camera.cullingMask &= ~layerMask;
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    [SerializeField] NavMeshSamplePosition[] samplePositions;
+    [SerializeField] NavMeshSamplePosition[] samplePositions=null;
     [SerializeField] ItemBase[] items=null;
     Coroutine coroutine;
     [SerializeField] float interval = 5.0f;
@@ -15,7 +15,6 @@ public class ItemManager : MonoBehaviour
 
     private void Awake()
     {
-        samplePositions = FindObjectsOfType<NavMeshSamplePosition>();
         gameManager = FindObjectOfType<GameManager>();
     }
     IEnumerator FallItem()

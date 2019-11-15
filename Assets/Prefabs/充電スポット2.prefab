@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.95205426, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4875,6 +4875,7 @@ GameObject:
   - component: {fileID: 652318437352773259}
   - component: {fileID: 1440068182687829701}
   - component: {fileID: 2228596301854489467}
+  - component: {fileID: 4139836138435110885}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -4942,6 +4943,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &4139836138435110885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772104435112712134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.011356962, y: 0.011356959, z: 0.023722455}
+  m_Center: {x: 0, y: -0.000000001164153, z: 0.011967538}
 --- !u!1 &5545602701104322158
 GameObject:
   m_ObjectHideFlags: 0
@@ -5101,7 +5115,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3887921544910293459, guid: 6f483c4299812b646a9b723ba844a259,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3887921544910293459, guid: 6f483c4299812b646a9b723ba844a259, type: 3}
+    - {fileID: 5304186255480221161, guid: 6f483c4299812b646a9b723ba844a259, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6f483c4299812b646a9b723ba844a259, type: 3}
 --- !u!4 &80124405483398402 stripped
 Transform:
