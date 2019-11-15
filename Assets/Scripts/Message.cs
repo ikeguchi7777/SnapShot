@@ -105,9 +105,9 @@ public class Message : MonoBehaviour
                 elapsedTime = 0f;
             }
 
-            if (canvasGroup.alpha>0.5f)
+            if (canvasGroup.alpha>0.7f)
             {
-                canvasGroup.alpha -= 0.5f * Time.deltaTime /2;
+                canvasGroup.alpha -= 0.3f * Time.deltaTime /2;
             }
             
 

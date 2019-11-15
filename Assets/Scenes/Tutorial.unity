@@ -728,7 +728,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "BACK\u30DC\u30BF\u30F3\u3067\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u30B9\u30AD\u30C3\u30D7"
+  m_Text: "START\u30DC\u30BF\u30F3\u3067\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u3092\u30B9\u30AD\u30C3\u30D7"
 --- !u!222 &187060847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -828,6 +828,7 @@ GameObject:
   - component: {fileID: 206617230}
   - component: {fileID: 206617233}
   - component: {fileID: 206617232}
+  - component: {fileID: 206617235}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -1012,6 +1013,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e9746a626957cee44bb9b12b28bd9f3c, type: 3}
   SEClips:
   - {fileID: 8300000, guid: 67840d6e19a59b946a49a2363a7f55f0, type: 3}
+--- !u!114 &206617235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206617229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eddddfd558851e4e883e16589496beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &214117460
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,10 +20,12 @@ public class MainGameManager : GameManager
     ItemUI ItemUI;
     [SerializeField]
     int time = 0;
-    float[,] duration = new float[(int)Item.MaxNum,4];
+    float[,] duration = new float[(int)Item.MaxNum, 4];
     bool[,] isenable = new bool[(int)Item.MaxNum, 4];
     [SerializeField]
-    float Timer = 300;
+    float Timer = 300; public float GetTimer() { return Timer; }
+
+
 
     protected override void Awake()
     {
@@ -179,8 +181,8 @@ public class MainGameManager : GameManager
         base.Update();
         if (!pause.isPaused)
             Timer -= Time.deltaTime;
-        if (Timer < 0.0f)
-            SceneManager.LoadScene("Result");
+        //if (Timer < 0.0f)
+        //    SceneManager.LoadScene("Result");
 
 
         if (Input.GetKeyDown(KeyCode.R))
