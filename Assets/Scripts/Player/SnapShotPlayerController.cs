@@ -24,6 +24,7 @@ public class SnapShotPlayerController : vThirdPersonController
     public SmartPhoneCamera smartPhone { get; private set; }
     PlayerBodyPoint point;
     float x, y;
+    float chargerate = 0.0f;
     public bool isCharging { get; set; } 
 
     public int PlayerID { get; set; }
@@ -75,7 +76,7 @@ public class SnapShotPlayerController : vThirdPersonController
             nextEulerAngle = Vector3.zero;
         if (isCharging)
         {
-            smartPhone.ChargeBattery(5.0f * Time.deltaTime);
+            smartPhone.ChargeBattery(chargerate * Time.deltaTime);
         }
     }
 
@@ -140,5 +141,11 @@ public class SnapShotPlayerController : vThirdPersonController
     {
         isInWater = inWater;
         Sprint(false);
+    }
+
+    public void SetCharge(float rate)
+    {
+        chargerate = rate;
+        isCharging = true;
     }
 }
