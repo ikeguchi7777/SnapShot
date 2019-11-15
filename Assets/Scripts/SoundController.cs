@@ -8,6 +8,7 @@ public class SoundController : MonoBehaviour
     public enum Sound
     {
        camera,
+       whistle,
     }
 
     [SerializeField] AudioSource audioSource;
