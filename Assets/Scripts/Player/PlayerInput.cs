@@ -31,6 +31,7 @@ public class PlayerInput : MonoBehaviour
         if (tpCamera) tpCamera.SetMainTarget(this.transform);
         else Debug.LogError("TPCameraの取得失敗");
         tpCamera.SetRenderTexture(cc.PanelTexture());
+        tpCamera.SetPhoneCamera(cc.smartPhone._camera);
         cc.smartPhone.changeBatteryUI = tpCamera.ChangeBatteryUI;
         tpCamera.SetBatteryBar(cc.smartPhone);
         cc.GetComponent<ChangeLayer>().ChangeObjectLayer(cc.PlayerID);
