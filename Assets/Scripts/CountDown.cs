@@ -14,6 +14,8 @@ public class CountDown : MonoBehaviour
     [SerializeField]
     MainGameManager mainGameManager;
 
+    SoundController soundController;
+
     [SerializeField]
     GameObject[] count;
     float[] timepoint = {300,240,180,120, 60, 30, 10,  5,  4,  3,  2,  1,  0, -100};
@@ -25,7 +27,7 @@ public class CountDown : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        soundController = mainGameManager.GetComponent<SoundController>();
     }
 
     // Update is called once per frame
@@ -69,13 +71,15 @@ public class CountDown : MonoBehaviour
                     }
                     else if (flag == 12)
                     {
+                        soundController.PlaySE(SoundController.Sound.whistle);
+
                         Sequence seq = DOTween.Sequence();
                         seq.Append(count[i].GetComponent<Transform>().DOScale(new Vector2(0.5f, 0.5f), 0f));
                         seq.Append(count[i].GetComponent<CanvasGroup>().DOFade(1, 1.0f));
-                        seq.Join(count[i].GetComponent<Transform>().DOScale(new Vector2(1f, 1f), 1.0f));
+                        seq.Join(count[i].GetComponent<Transform>().DOScale(new Vector2(2f, 2f), 1.0f));
                         seq.AppendInterval(3f);
                         seq.Append(count[i].GetComponent<CanvasGroup>().DOFade(0, 1.0f));
-                        seq.Join(count[i].GetComponent<Transform>().DOScale(new Vector2(0.1f, 0.1f), 0f));
+                        seq.Join(count[i].GetComponent<Transform>().DOScale(new Vector2(0.1f, 0.1f), 0.2f));
                         seq.AppendInterval(3f);
                         seq.OnComplete(() => SceneManager.LoadScene("Result"));
 
