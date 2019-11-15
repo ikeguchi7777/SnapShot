@@ -36,9 +36,7 @@ public class PauseSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-#if UNITY_EDITOR
         isPauseable = true;
-#endif
         enabled = false;
         eventSystem = FindObjectOfType<EventSystem>();
         inputModule = eventSystem.gameObject.GetComponent<StandaloneInputModule>();
@@ -48,6 +46,8 @@ public class PauseSystem : MonoBehaviour
     {
         if (!isPauseable)
             return;
+        eventSystem.SetSelectedGameObject(null);
+        panel.SetActive(true);
         isPauseable = false;
         ChangeKey(id);
         Predicate<Rigidbody> rgPredicate =
@@ -77,7 +77,6 @@ public class PauseSystem : MonoBehaviour
             animator.speed = 0.0f;
         }
         isPaused = true;
-        panel.SetActive(true);
         eventSystem.SetSelectedGameObject(panel.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
         Debug.Log(eventSystem.currentSelectedGameObject);
     }

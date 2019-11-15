@@ -85,7 +85,7 @@ public class PlayerInput : MonoBehaviour
 
     protected virtual void SprintInput()
     {
-        if (Input.GetButton(keyname.Sprint))
+        if (Input.GetButton(keyname.Sprint)&&!cc.isInWater)
             cc.Sprint(true);
         else if (Input.GetButtonUp(keyname.Sprint))
             cc.Sprint(false);
