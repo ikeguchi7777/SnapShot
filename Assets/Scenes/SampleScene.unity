@@ -5972,7 +5972,8 @@ PrefabInstance:
       propertyPath: rippleControls.Array.data[3]
       value: 
       objectReference: {fileID: 381590369}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1667470079, guid: b0ce49162f85eab43a51340609da1d14, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b0ce49162f85eab43a51340609da1d14, type: 3}
 --- !u!4 &1548628208 stripped
 Transform:
