@@ -98,14 +98,13 @@ public class ResultManager : MonoBehaviour
                 SceneManager.LoadScene("Title");
             }
 
-            if (Input.GetButtonDown("Pause"+(i+1)))
-            {
-                speed = 20;
-            }
-
         }
 
-        
+        if (Input.GetButtonDown("Skip"))
+        {
+            speed = 20;
+        }
+
     }
 
     IEnumerator Loop()

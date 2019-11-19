@@ -45,6 +45,7 @@ public class CountDown : MonoBehaviour
                   
                     if (flag <= 6)
                     {
+                        soundController.PlaySE(SoundController.Sound.count);
 
                         Sequence seq = DOTween.Sequence();
                         seq.Append(count[i].GetComponent<Transform>().DOScale(new Vector2(0.5f, 0.5f), 0f));
@@ -58,6 +59,8 @@ public class CountDown : MonoBehaviour
                     }
                     else if (flag <= 11)
                     {
+
+                        soundController.PlaySE(SoundController.Sound.count);
 
                         Sequence seq = DOTween.Sequence();
                         seq.Append(count[i].GetComponent<Transform>().DOScale(new Vector2(0.5f, 0.5f), 0f));
