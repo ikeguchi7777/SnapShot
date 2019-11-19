@@ -857,9 +857,9 @@ MonoBehaviour:
     type: 3}
   position:
   - {x: -1, y: 0, z: 1}
-  - {x: 1, y: 0, z: 13}
-  - {x: 1, y: 0, z: 14}
-  - {x: 1, y: 0, z: 15}
+  - {x: 1, y: 0, z: 1}
+  - {x: -1, y: 0, z: -1}
+  - {x: 1, y: 0, z: -1}
   checkarea: {fileID: 5549385361736091976, guid: d559f233937ad59428c2595f352b552f,
     type: 3}
   chargespot: {fileID: 2200923163187104885, guid: 6f483c4299812b646a9b723ba844a259,
