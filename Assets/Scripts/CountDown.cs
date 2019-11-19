@@ -80,7 +80,7 @@ public class CountDown : MonoBehaviour
                         seq.AppendInterval(3f);
                         seq.Append(count[i].GetComponent<CanvasGroup>().DOFade(0, 1.0f));
                         seq.Join(count[i].GetComponent<Transform>().DOScale(new Vector2(0.1f, 0.1f), 0.2f));
-                        seq.AppendInterval(1f);
+                        seq.AppendInterval(3f);
                         seq.OnComplete(() => SceneManager.LoadScene("Result"));
 
                     }
